@@ -1,5 +1,5 @@
 import { Stack, Typography } from "@mui/material"
-import { useRef } from "react"
+import { forwardRef, useRef } from "react"
 import { primary } from "src/theme/create-palette"
 
 
@@ -8,39 +8,55 @@ const TimelineCont = ({number, title, content, date}) => {
     const oddLine = (number % 2)
 
 
-    const Details = () => (
-        <Stack
-        sx={{
-            gap: '15px',
-            width: '400px',
-            position: 'absolute',
-            bottom: oddLine ? 0 : '-50px',
-            ...oddLine ? {
-                left: 'calc(-100% + -400px)',
-            } : {
-                right: 'calc(-100% + -400px)'
+    const Details = () => {
+        return (
+            <Stack
+            sx={{
+                gap: '15px',
+                width: '400px',
+                position: 'absolute',
+                bottom: oddLine ? 0 : '-50px',
+                ...oddLine ? {
+                    left: 'calc(-100% + -400px)',
+                } : {
+                    right: 'calc(-100% + -400px)'
+                }
+            }}
+            >
+            {
+            number===1 &&
+            <img 
+            src="/assets/images/star pu.png"
+            style={{
+                position: 'relative',
+                width: '25px',
+                height: '30px',
+                top: '-50px',
+                left: '50px'
+            }}
+            />
             }
-        }}
-        >
-        <Typography 
-        sx={{
-            color: 'primary.main',
-            fontWeight: 1000,
-            fontSize: '1.125rem'
-        }}
-        >
-        {title}
-        </Typography>
-        <Typography sx={{fontSize: '.8rem'}}>
-        {content}
-        </Typography>
-        </Stack>
-    )
+            <Typography 
+            sx={{
+                color: 'primary.main',
+                fontWeight: 1000,
+                fontSize: '1.125rem'
+            }}
+            >
+            {title}
+            </Typography>
+            <Typography sx={{fontSize: '.8rem'}}>
+            {content}
+            </Typography>
+            </Stack>
+        )
+    }
 
-    const TimelineDate = () => {
-
+    const TimelineDate = forwardRef((_, ref) => {
+        
         return(
             <Typography
+            ref={ref}
             sx={{
                 color: 'primary.main',
                 fontWeight: 1000,
@@ -56,9 +72,23 @@ const TimelineCont = ({number, title, content, date}) => {
             }}
             >
             {date}
+
+            {
+            number===3 &&
+            <img 
+            src="/assets/images/star.png"
+            style={{
+                position: 'relative',
+                width: '25px',
+                height: '30px',
+                top: '-30px',
+                right: '-50px'
+            }}
+            />
+            }
             </Typography>
         )
-    }
+    })
 
     return (
         <Stack
@@ -75,7 +105,8 @@ const TimelineCont = ({number, title, content, date}) => {
         number={number}
         />
 
-        <TimelineDate />
+        <TimelineDate 
+        />
         </Stack>
     )
 }

@@ -11,7 +11,7 @@ const Timeline = () => {
     return (
         <Stack
         sx={{
-            p: '50px 100px',
+            p: '50px 100px 100px 100px',
             gap: '50px'
         }}
         >
@@ -28,7 +28,7 @@ const Timeline = () => {
             </Typography>
         </Stack>
 
-        <Stack sx={{gap: '15px'}}>
+        <Stack sx={{gap: '15px', position: 'relative'}}>
         {
         timelines.map( ({title, content, date}, k) => (
             <TimelineCont
@@ -40,6 +40,16 @@ const Timeline = () => {
             />
         ) )
         }
+
+
+        <img 
+        src="/assets/images/star (1).png"
+        style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0
+        }}
+        />
         </Stack>
         </Stack>
     )

@@ -13,7 +13,8 @@ const IntroToGetLinked = () => {
         sx={{
             p: '50px 100px 50px 100px',
             alignItems: 'center',
-            gap: '100px'
+            gap: '100px',
+            bgcolor: '#140D27'
         }}
         >
         <Stack
