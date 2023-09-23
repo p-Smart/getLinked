@@ -1,6 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material"
 import { neutral } from "src/theme/create-palette"
 import {v4 as uuid} from 'uuid'
+import Divider from "./Divider"
 
 const partners = [
     {
@@ -30,6 +31,8 @@ const PartnersNSponsors = () => {
 
 
     return (
+        <>
+        
         <Stack
         sx={{
             p: '50px',
@@ -83,11 +86,12 @@ const PartnersNSponsors = () => {
             border: '1px solid',
             borderColor: 'primary.main',
             width: '100%',
-            height: '400px',
+            // height: '400px',
             alignItems: 'center',
             justifyContent: 'center',
             gap: '20px',
-            position: 'relative'
+            position: 'relative',
+            py: '80px'
         }}
         >
         <img
@@ -202,6 +206,9 @@ const PartnersNSponsors = () => {
         </Stack>
         </Stack>
         </Stack>
+    
+        <Divider />
+        </>
     )
 }
 

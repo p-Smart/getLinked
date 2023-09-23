@@ -14,7 +14,7 @@ export function createTheme() {
         xs: 450,
         sm: 625,
         md: 991,
-        lg: 1290,
+        lg: 1200,
         xl: 1440
       }
     },

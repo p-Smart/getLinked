@@ -4,28 +4,33 @@ import criterias from "./criterias"
 import { v4 as uuid } from 'uuid'
 import Button from "src/components/Button"
 import Divider from "../Divider"
+import { useBreakpoints } from "src/theme/mediaQuery"
 
 
 const JudgingCriteria = () => {
+    const {xs, sm, md, lg, xl} = useBreakpoints()
 
 
     return (
         <>
         <Stack
-        direction='row'
+        direction={md ? 'column' : 'row'}
         sx={{
-            p: '100px',
+            p: md ? '100px 30px 30px 30px' : '100px',
             alignItems: 'center',
-            gap: '100px',
-            position: 'relative'
+            gap: md ? '20px' : '100px',
+            position: 'relative',
+            ...md && {
+                textAlign: 'center'
+            }
         }}
         >
         <img 
         src="/assets/images/Purple-Lens-Flare-PNG.png"
         style={{
             position: 'absolute',
-            top: '22%',
-            left: '-30%',
+            top: sm ? '-10%' : md ? '-15%' : '22%',
+            left: sm ? '-130%' : md ? '-40%' : '-30%',
             mixBlendMode: 'hard-light',
             filter: 'blur(20px)',
             opacity: '0.7'
@@ -36,8 +41,8 @@ const JudgingCriteria = () => {
         src="/assets/images/Purple-Lens-Flare-PNG.png"
         style={{
             position: 'absolute',
-            top: '40%',
-            right: '-8%',
+            top: sm ? '55%' : '40%',
+            right: sm ? '-80%' : md ? '-20%' : '-8%',
             mixBlendMode: 'hard-light',
             opacity: '0.7'
         }}
@@ -50,8 +55,8 @@ const JudgingCriteria = () => {
         <img 
         src="/assets/images/8046554 1.png"
         style={{
-            width: 2800/5,
-            height: 2306/5
+            width: lg ? 2800/7 : xl ? 2800/5.5 : 2800/5,
+            height: lg ? 2306/7 : xl ? 2306/5.5 : 2306/5
         }}
         />
         <img 
@@ -60,7 +65,8 @@ const JudgingCriteria = () => {
             position: 'absolute',
             objectFit: 'cover',
             top: '-20%',
-            left: '25%'
+            left: '25%',
+            transform: 'scale(.8)'
         }}
         />
         <img 
@@ -69,7 +75,8 @@ const JudgingCriteria = () => {
             position: 'absolute',
             objectFit: 'cover',
             bottom: '40%',
-            right: '40%'
+            right: '40%',
+            transform: 'scale(.6)'
         }}
         />
         <img 
@@ -78,7 +85,8 @@ const JudgingCriteria = () => {
             position: 'absolute',
             objectFit: 'cover',
             bottom: 0,
-            right: 0
+            right: 0,
+            transform: 'scale(.7)'
         }}
         />
         </Stack>
@@ -91,7 +99,7 @@ const JudgingCriteria = () => {
         }}
         >
         <Typography
-        variant="h5"
+        variant={sm ? "h6" : "h5"}
         sx={{
             position: 'relative'
         }}
@@ -135,7 +143,7 @@ const JudgingCriteria = () => {
         
         <Button 
         title='Read More'
-        sx={{alignSelf: 'flex-start'}}
+        sx={{alignSelf: md ? 'center' : 'flex-start'}}
         />
         </Stack>
         </Stack>

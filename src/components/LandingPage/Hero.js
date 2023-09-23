@@ -2,10 +2,12 @@ import { Stack, Typography } from "@mui/material"
 import Button from "../Button"
 import Divider from "./Divider"
 import { primary } from "src/theme/create-palette"
+import { useBreakpoints } from "src/theme/mediaQuery"
 
 
 
 const Hero = () => {
+    const {xs, sm, md, lg, xl} = useBreakpoints()
 
 
     return (
@@ -28,11 +30,11 @@ const Hero = () => {
         />
         <Stack
         sx={{
-            p: '30px 50px 0 100px',
+            p: md ? '30px' : '30px 50px 0 100px',
             overflow: 'hidden',
-            gap: '20px',
+            gap: md ? '50px' : '20px',
             zIndex: 1,
-            position: 'relative'
+            position: 'relative',
         }}
         >
         <img 
@@ -40,7 +42,8 @@ const Hero = () => {
         style={{
             position: 'absolute',
             top: '7%',
-            left: '10%'
+            left: '10%',
+            transform: 'scale(.7)'
         }}
         />
         <img 
@@ -48,15 +51,20 @@ const Hero = () => {
         style={{
             position: 'absolute',
             bottom: '23.5%',
-            left: '30%'
+            left: '30%',
+            transform: 'scale(.6)'
         }}
         />
             <Typography
-            variant="h5-2"
+            variant={sm ? "h6-2" : "h5-2"}
             sx={{
-                alignSelf: 'flex-end',
+                alignSelf: md ? 'center' : 'flex-end',
                 fontStyle: 'italic',
-                wordSpacing: '5px'
+                wordSpacing: '5px',
+                whiteSpace: 'nowrap',
+                ...xs && {
+                    fontSize: '.8rem'
+                }
             }}
             >
                 <span>
@@ -81,12 +89,24 @@ const Hero = () => {
                 </span>
             </Typography>
             <Stack
-            direction='row'
+            direction={md ? 'column' : 'row'}
+            sx={{
+                ...md && {
+                    alignItems: 'center',
+                    gap: '50px'
+                }
+            }}
             >
             <Stack
             sx={{
                 alignSelf: 'center',
-                gap: '50px'
+                gap: '50px',
+                position: 'relative',
+                zIndex: 2,
+                ...md && {
+                    textAlign: 'center',
+                    alignItems: 'center'
+                }
             }}
             >
                 <Stack
@@ -95,7 +115,7 @@ const Hero = () => {
                 }}
                 >
                 <Typography
-                variant="h2"
+                variant={xs ? "h4" : lg ? "h3" : "h2"}
                 >
                 <span>getlinked Te</span>
                 <span
@@ -116,10 +136,11 @@ const Hero = () => {
                 <span
                 style={{
                     display: 'block',
+                    whiteSpace: 'nowrap'
                 }}
                 >
                 <span>
-                Hackerthon&nbsp;
+                Hackathon&nbsp;
                 </span>
                 <span
                 style={{
@@ -132,21 +153,21 @@ const Hero = () => {
                 style={{
                     display: 'inline-flex',
                     gap: '5px',
-                    marginLeft: '5px',
+                    marginLeft: '5px'
                 }}
                 >
                 <img
                 src="/assets/images/chain-9365116-7621444.png"
                 style={{
-                    width: '50px',
-                    height: '50px'
+                    width: lg ? '30px' : '50px',
+                    height:  lg ? '30px' : '50px'
                 }}
                 />
                 <img 
                 src="/assets/images/1f4a5.png"
                 style={{
-                    width: '40px',
-                    height: '40px'
+                    width: lg ? '25px' : '40px',
+                    height: lg ? '25px' : '40px',
                 }}
                 />
                 </span>
@@ -159,7 +180,7 @@ const Hero = () => {
                 <Button 
                 title='Register'
                 sx={{
-                    alignSelf: 'flex-start'
+                    alignSelf: md ? 'center' : 'flex-start'
                 }}
                 />
                 </Stack>
@@ -168,7 +189,7 @@ const Hero = () => {
                 direction='row'
                 sx={{
                     gap: '15px',
-                    fontSize: '2rem',
+                    fontSize: '2.5rem',
                     '& sub': {
                         fontSize: '1rem'
                     }
@@ -189,8 +210,8 @@ const Hero = () => {
             <Stack
             sx={{
                 width: 'fit-content',
-                height: '500px',
-                transform: 'translateX(150px)',
+                height: md ? '350px' : lg ? '400px' : '500px',
+                transform: md ? 'translateX(10px)' : lg ? 'translateX(10px)' : xl ? 'translateX(60px)' : 'translateX(190px)',
                 position: 'relative'
             }}
             >

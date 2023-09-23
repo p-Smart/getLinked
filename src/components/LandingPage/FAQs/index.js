@@ -4,9 +4,11 @@ import Divider from "../Divider"
 import questions from "./questions"
 import FAQ from "./FAQ"
 import {v4 as uuid} from 'uuid'
+import { useBreakpoints } from "src/theme/mediaQuery"
 
 
 const FAQs = () => {
+    const {xs, sm, md, lg, xl} = useBreakpoints()
 
     return (
         <Stack
@@ -16,11 +18,11 @@ const FAQs = () => {
         }}
         >
         <Stack
-        direction='row'
+        direction={md ? 'column' : 'row'}
         sx={{
-            p: '100px',
+            p: md ? '50px 30px 30px 30px' : '100px',
             alignItems: 'center',
-            gap: '100px'
+            gap: md ? '100px' : lg ? '50px' : '100px'
         }}
         >
         <Stack
@@ -29,10 +31,10 @@ const FAQs = () => {
             position: 'relative'
         }}
         >
-        <Stack sx={{gap: '20px'}}>
+        <Stack sx={{gap: '20px', ...md && {textAlign: 'center'}}}>
 
         <Typography
-        variant="h5"
+        variant={sm ? "h6" : "h5"}
         sx={{
             position: 'relative'
         }}
@@ -42,7 +44,8 @@ const FAQs = () => {
         style={{
             position: 'absolute',
             top: '-40px',
-            left: '-40px'
+            left: '-40px',
+            transform: 'scale(.7)'
         }}
         />
         <span>Frequently Ask</span>
@@ -86,8 +89,8 @@ const FAQs = () => {
         <img 
         src="/assets/images/cwok_casual_21 1.png"
         style={{
-            width: 2000/3.5,
-            height: 2000/3.5,
+            width: sm ? 2000/5 : md ? 2000/4.8 : lg ? 2000/4.4 : xl ? 2000/3.7 : 2000/3.5,
+            height: sm ? 2000/5 : md ? 2000/4.8 : lg ? 2000/4.4 : xl ? 2000/3.7 : 2000/3.5,
             objectFit: 'cover',
             zIndex: 1
         }}
@@ -98,7 +101,8 @@ const FAQs = () => {
         style={{
             position: 'absolute',
             bottom: '45%',
-            left: 0
+            left: 0,
+            transform: 'scale(.6)'
         }}
         />
         <img 
@@ -106,25 +110,27 @@ const FAQs = () => {
         style={{
             position: 'absolute',
             bottom: '-20px',
-            right: '17.5%'
+            right: '17.5%',
+            transform: 'scale(.6)'
         }}
         />
 
         <QuestionMark 
-        sx={{top: '-5%', left: '15%', fontSize: '4rem', color: '#A866FD'}}
+        sx={{top: sm ? '-12%' : md ? '-10%' : '-5%', left: '15%', fontSize: '4rem', color: '#A866FD'}}
         />
         <QuestionMark 
-        sx={{top: '-15%', left: '35%', fontSize: '6rem'}}
+        sx={{top: sm ? '-23%' : md ? '-20%' : '-15%', left: '35%', fontSize: '6rem'}}
         />
         <QuestionMark 
-        sx={{top: '-5%', left: '55%', fontSize: '4rem', color: '#A866FD'}}
+        sx={{top: sm ? '-12%' : md ? '-10%' : '-5%', left: '55%', fontSize: '4rem', color: '#A866FD'}}
         />
         <img 
         src="/assets/images/sata gra.png"
         style={{
             position: 'absolute',
             top: '-5%',
-            left: '47%'
+            left: '47%',
+            transform: 'scale(.6)'
         }}
         />
         <img 
@@ -132,7 +138,8 @@ const FAQs = () => {
         style={{
             position: 'absolute',
             top: '20%',
-            left: '20%'
+            left: '20%',
+            transform: 'scale(.6)'
         }}
         />
         </Stack>

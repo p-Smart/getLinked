@@ -1,28 +1,29 @@
 import { Box, Stack, Typography } from "@mui/material"
 import { primary } from "src/theme/create-palette"
 import Divider from "./Divider"
+import { useBreakpoints } from "src/theme/mediaQuery"
 
 
 const RulesNGuidelines = () => {
+    const {xs, sm, md, lg, xl} = useBreakpoints()
 
 
     return (
         <Stack
         sx={{
             position: 'relative',
-            overflow: 'hidden'
         }}
         >
         <img 
         src="/assets/images/Purple-Lens-Flare-PNG.png"
         style={{
             position: 'absolute',
-            top: '-80%',            
-            right: '40%',
+            top: '-80%',
+            right: sm ? '-10%' : '40%',
             mixBlendMode: 'hard-light',
-            transform: 'rotate(150deg)',
-            filter: 'blur(20px)',
-            opacity: '0.7'
+            transform: 'rotate(150deg) scale(.9)',
+            filter: 'blur(40px)',
+            opacity: '0.8'
         }}
         />
 
@@ -30,17 +31,20 @@ const RulesNGuidelines = () => {
         src="/assets/images/Purple-Lens-Flare-PNG.png"
         style={{
             position: 'absolute',
-            top: 0,
-            right: '-28%',
+            top: sm ? '-10%' : md ? '-20%' : 0,
+            right: sm ? '-90%' : md ? '-50%' : '-28%',
             mixBlendMode: 'hard-light',
         }}
         />
         <Stack
-        direction='row'
+        direction={md ? 'column-reverse' : 'row'}
         sx={{
-            p: '50px 100px 50px 100px',
+            p: md ? '0 30px 30px 30px' : '0 100px',
             alignItems: 'center',
-            gap: '100px'
+            gap: md ? '20px' : lg ? '50px' : '100px',
+            ...md && {
+                textAlign: 'center'
+            }
         }}
         >
         <Stack
@@ -54,7 +58,8 @@ const RulesNGuidelines = () => {
         style={{
             position: 'absolute',
             bottom: '-50px',
-            right: '-50px'
+            right: '-50px',
+            transform: 'scale(.7)'
         }}
         />
         <img 
@@ -62,12 +67,13 @@ const RulesNGuidelines = () => {
         style={{
             position: 'absolute',
             top: '-50px',
-            left: '40%'
+            left: '40%',
+            transform: 'scale(.7)'
         }}
         />
 
         <Typography
-        variant="h5"
+        variant={sm ? "h6" : "h5"}
         sx={{
             position: 'relative'
         }}
@@ -97,8 +103,8 @@ const RulesNGuidelines = () => {
         <img 
         src="/assets/images/7450159 1.png"
         style={{
-            width: 2800/6,
-            height: 2800/6,
+            width: sm ? 2800/7 : lg ? 2800/6.5 : 2800/6,
+            height: sm ? 2800/7 : lg ? 2800/6.5 : 2800/6,
             objectFit: 'cover',
             zIndex: 1
         }}

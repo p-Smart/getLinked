@@ -1,32 +1,38 @@
 import { Stack, Typography } from "@mui/material"
 import { primary } from "src/theme/create-palette"
 import Divider from "./Divider"
+import { useBreakpoints } from "src/theme/mediaQuery"
 
 
 const IntroToGetLinked = () => {
+    const {xs, sm, md, lg, xl} = useBreakpoints()
 
 
     return (
         <>
         <Stack
-        direction='row'
+        direction={md ? 'column' : 'row'}
         sx={{
-            p: '50px 100px 50px 100px',
+            p: md ? '20px 30px 50px 20px' : '50px 100px 50px 100px',
             alignItems: 'center',
             gap: '100px',
-            bgcolor: '#140D27'
+            bgcolor: '#140D27',
+            ...md && {
+                textAlign: 'center'
+            }
         }}
         >
         <Stack
         sx={{
-            position: 'relative',
+            position: 'relative'
         }}
         >
         <img 
         src="/assets/images/the big idea 1.png"
         style={{
-            width: 1622/3.5,
-            height: 1572/3.5
+            width: sm ? '100%' : lg ? 1622/4.5 : 1622/3.5,
+            height: lg ? 1572/4.5 :  1572/3.5,
+            objectFit: sm ? 'contain' : 'cover'
         }}
         />
         <Typography
@@ -35,7 +41,7 @@ const IntroToGetLinked = () => {
             top: '50%',
             left: '41.2%',
             fontWeight: 600,
-            fontSize: '1.25rem',
+            fontSize: md  ? '1rem': '1.25rem',
             textAlign: 'center'
         }}
         >
@@ -59,8 +65,8 @@ const IntroToGetLinked = () => {
         src="/assets/images/arrow.png"
         style={{
             position: 'absolute',
-            bottom: 0,
-            right: '-50px'
+            bottom: md ? '-20%' : 0,
+            right: md ? '43%' : '-50px'
         }}
         />
         </Stack>
@@ -71,12 +77,12 @@ const IntroToGetLinked = () => {
         }}
         >
         <Typography
-        variant="h5"
+        variant={sm ? "h6" : "h5"}
         sx={{
             position: 'relative'
         }}
         >
-        <span>Intoduction to  getlinked</span>
+        <span>Introduction to  getlinked</span>
         <span
         style={{
             display: 'block',
@@ -91,7 +97,8 @@ const IntroToGetLinked = () => {
         style={{
             position: 'absolute',
             top: '10%',
-            right: 0
+            right: 0,
+            transform: 'scale(.7)'
         }}
         />
         </Typography>

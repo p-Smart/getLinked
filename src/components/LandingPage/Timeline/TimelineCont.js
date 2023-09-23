@@ -1,11 +1,13 @@
 import { Stack, Typography } from "@mui/material"
 import { forwardRef, useRef } from "react"
 import { primary } from "src/theme/create-palette"
+import { useBreakpoints } from "src/theme/mediaQuery"
 
 
 
 const TimelineCont = ({number, title, content, date}) => {
     const oddLine = (number % 2)
+    const {xs, sm, md, lg, xl} = useBreakpoints()
 
 
     const Details = () => {
@@ -13,13 +15,15 @@ const TimelineCont = ({number, title, content, date}) => {
             <Stack
             sx={{
                 gap: '15px',
-                width: '400px',
-                position: 'absolute',
-                bottom: oddLine ? 0 : '-50px',
-                ...oddLine ? {
-                    left: 'calc(-100% + -400px)',
-                } : {
-                    right: 'calc(-100% + -400px)'
+                width: !sm ? '400px' : 'unset',
+                position: !md ? 'absolute' : 'relative',
+                ...!md && {
+                        bottom: oddLine ? 0 : '-50px',
+                    ...oddLine ? {
+                        left: 'calc(-100% + -400px)',
+                    } : {
+                        right: 'calc(-100% + -400px)'
+                    }
                 }
             }}
             >
@@ -28,19 +32,20 @@ const TimelineCont = ({number, title, content, date}) => {
             <img 
             src="/assets/images/star pu.png"
             style={{
-                position: 'relative',
+                position: !md ? 'relative' : 'absolute',
                 width: '25px',
                 height: '30px',
-                top: '-50px',
-                left: '50px'
+                top: sm ? '-40px' : '-50px',
+                left: sm ? '30px' : '50px',
+                transform: 'scale(.7)'
             }}
             />
             }
             <Typography 
             sx={{
                 color: 'primary.main',
-                fontWeight: 1000,
-                fontSize: '1.125rem'
+                fontWeight: sm ? 700 : 1000,
+                fontSize: sm ? '1rem' : '1.125rem'
             }}
             >
             {title}
@@ -59,16 +64,21 @@ const TimelineCont = ({number, title, content, date}) => {
             ref={ref}
             sx={{
                 color: 'primary.main',
-                fontWeight: 1000,
-                fontSize: '1.125rem',
-                position: 'absolute',
-                whiteSpace: 'nowrap',
-                bottom: 0,
-                ...oddLine ? {
-                    right: 'calc(-100% + -200px)',
-            } : {
-                left: 'calc(-100% + -200px)',
-            }
+                fontWeight: sm ? 700 : 1000,
+                fontSize: sm ? '1rem' : '1.125rem',
+                position: !md ? 'absolute' : 'relative',
+                whiteSpace: !md ? 'nowrap' : 'unset',
+                ...!md && {
+                        bottom: 0,
+                    ...oddLine ? {
+                        right: 'calc(-100% + -200px)',
+                } : {
+                    left: 'calc(-100% + -200px)',
+                },
+                },
+                ...md && {
+                    mt: 'auto'
+                }
             }}
             >
             {date}
@@ -78,11 +88,12 @@ const TimelineCont = ({number, title, content, date}) => {
             <img 
             src="/assets/images/star.png"
             style={{
-                position: 'relative',
+                position: !md ? 'relative' : 'absolute',
                 width: '25px',
                 height: '30px',
                 top: '-30px',
-                right: '-50px'
+                right: sm ? 0 : '-50px',
+                transform: 'scale(.7)'
             }}
             />
             }
@@ -94,19 +105,23 @@ const TimelineCont = ({number, title, content, date}) => {
         <Stack
         direction='row'
         sx={{
-            gap: '50px',
-            alignSelf: 'center',
+            gap: '10px',
+            alignSelf: sm ? 'flex-start' : 'center',
             position: 'relative'
         }}
         >
-        <Details />
-
+        {!md && <Details />}
+        {!md && <TimelineDate />}
         <Line
         number={number}
         />
-
-        <TimelineDate 
-        />
+        {
+        md &&
+        <Stack>
+            <Details />
+            <TimelineDate />
+        </Stack>
+        }
         </Stack>
     )
 }
@@ -127,6 +142,7 @@ export default TimelineCont
 
 
 const Line = ({number}) => {
+    const {xs, sm, md, lg, xl} = useBreakpoints()
 
     return (
         <Stack
