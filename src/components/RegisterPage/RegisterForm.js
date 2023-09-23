@@ -36,9 +36,10 @@ const RegisterForm = () => {
         "group_size": '',
         "project_topic":"",
         "category": '',
-        "privacy_poclicy_accepted": ''
+        "privacy_poclicy_accepted": false
     }
     const [formData, setFormData] = useState(initialFormData)
+    const [data, setData] = useState('')
 
 
     const handleRegister = async (e) => {
@@ -183,7 +184,7 @@ const RegisterForm = () => {
         gridWrapSx={{
             gap: '20px',
             width: '100%',
-            flexDirection: 'column'
+            flexDirection: md ? 'column' : 'row'
         }}
         sx={{
             gap: '20px',
@@ -202,9 +203,8 @@ const RegisterForm = () => {
             <TextField
             placeholder={placeholder}
             sx={textFieldStyle}
-            fullWidth
-            onChange={(e) => action(e.target.value)}
-            value={value}
+            onChange={(e) => console.log(e.target.value)}
+            // value={value}
             />
             </Stack>
         ) )
@@ -221,7 +221,7 @@ const RegisterForm = () => {
         <CheckBox 
         check={agree}
         setCheck={setAgree}
-        onChange={() => console.log(agree)}
+        onChange={(val) => setFormData( (prevVal) => ({...prevVal, privacy_poclicy_accepted: val}) )}
         />
         <Typography sx={{fontSize: '.8rem'}}>
         I agreed with the event terms and conditions  and privacy policy
