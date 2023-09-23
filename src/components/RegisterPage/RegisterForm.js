@@ -5,8 +5,10 @@ import Grid from "../CustomGrid"
 import {v4 as uuid} from 'uuid'
 import CheckBox from "../CheckBox"
 import { useState } from "react"
+import fetchData from "src/utils/fetchData"
 
 const textFieldStyle = {
+    minWidth: 'unset',
     '& .MuiInputBase-root': {
 
     },
@@ -18,16 +20,7 @@ const textFieldStyle = {
         color: 'rgba(255, 255, 255, 0.25)',
         fontSize: '.8rem'
     },
-    '& .MuiFormLabel-root': {
-        top: '-5px',
-    },
     '& fieldset': {
-        borderColor: 'neutral.50'
-    },
-    '& fieldset:hover': {
-        borderColor: 'neutral.50'
-    },
-    '& .Mui-focused fieldset': {
         borderColor: 'neutral.50'
     },
 }
@@ -36,6 +29,40 @@ const textFieldStyle = {
 const RegisterForm = () => {
     const {xs, sm, md, lg, xl} = useBreakpoints()
     const [agree, setAgree] = useState(false)
+    const initialFormData = {
+        "email":"",
+        "phone_number":"",
+        "team_name": "",
+        "group_size": '',
+        "project_topic":"",
+        "category": '',
+        "privacy_poclicy_accepted": ''
+    }
+    const [formData, setFormData] = useState(initialFormData)
+
+
+    const handleRegister = async (e) => {
+        e.preventDefault()
+
+        return console.log(formData)
+        try{
+            await fetchData('/hackathon/registration', {
+                "email":"sample@eexample.com",
+                "phone_number":"0903322445533",
+                "team_name": "Space Explore",
+                "group_size": 10,
+                "project_topic":"Web server propagation",
+                "category": 1,
+                "privacy_poclicy_accepted": true
+            })
+        }
+        catch(err){
+
+        }
+        finally{
+
+        }
+    }
 
 
 
@@ -44,31 +71,47 @@ const RegisterForm = () => {
     const form = [
         {
             title: `Team's name`,
-            placeholder: 'Enter the name of your group'
+            placeholder: 'Enter the name of your group',
+            action: (val) => setFormData( (prevVal) => ({...prevVal, team_name: val}) ),
+            value: formData?.team_name
         },
         {
             title: 'Phone',
-            placeholder: 'Enter your phone number'
+            placeholder: 'Enter your phone number',
+            action: (val) => setFormData( (prevVal) => ({...prevVal, phone_number: val}) ),
+            value: formData?.phone_number
         },
         {
             title: 'Email',
-            placeholder: 'Enter your email address'
+            placeholder: 'Enter your email address',
+            action: (val) => setFormData( (prevVal) => ({...prevVal, email: val}) ),
+            value: formData?.email
         },
         {
             title: 'Project Topic',
-            placeholder: 'What is your group project topic'
+            placeholder: 'What is your group project topic',
+            action: (val) => setFormData( (prevVal) => ({...prevVal, project_topic: val}) ),
+            value: formData?.project_topic
         },
         {
             title: 'Category',
-            placeholder: ''
+            placeholder: '',
+            action: (val) => setFormData( (prevVal) => ({...prevVal, category: val}) ),
+            value: formData?.category
         },
         {
             title: 'Group Size',
-            placeholder: ''
+            placeholder: '',
+            action: (val) => setFormData( (prevVal) => ({...prevVal, group_size: val}) ),
+            value: formData?.group_size
         },
     ]
 
     return (
+        <form
+        noValidate
+        onSubmit={handleRegister}
+        >
         <Stack
         sx={{
             p: md ? 0 : '50px',
@@ -135,9 +178,12 @@ const RegisterForm = () => {
         }}
         >
         <Grid
+        stackGrids="column"
         columns={md ? 1 : 2}
         gridWrapSx={{
-            gap: '20px'
+            gap: '20px',
+            width: '100%',
+            flexDirection: 'column'
         }}
         sx={{
             gap: '20px',
@@ -145,7 +191,7 @@ const RegisterForm = () => {
         }}
         >
         {
-        form.map( ({title, placeholder}) => (
+        form.map( ({title, placeholder, action, value}) => (
             <Stack
             key={uuid()}
             sx={{gap: '10px'}}
@@ -157,6 +203,8 @@ const RegisterForm = () => {
             placeholder={placeholder}
             sx={textFieldStyle}
             fullWidth
+            onChange={(e) => action(e.target.value)}
+            value={value}
             />
             </Stack>
         ) )
@@ -183,6 +231,7 @@ const RegisterForm = () => {
 
         <Button 
         title='Register'
+        type='submit'
         fullWidth
         sx={{
             alignSelf: 'center'
@@ -190,6 +239,7 @@ const RegisterForm = () => {
         />
         </Stack>
         </Stack>
+        </form>
     )
 }
 

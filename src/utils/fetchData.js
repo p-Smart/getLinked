@@ -1,27 +1,20 @@
 import axios from 'axios'
-import localForage from 'localforage'
-import { v4 as uuid } from 'uuid'
 
 const fetchData = async (endpoint, payload) => {
-    let sessionId = await localForage.getItem('sessionId')
-    if(!sessionId){
-        sessionId = uuid()
-        localForage.setItem('sessionId', sessionId)
-    }
-    // console.log('sessionId', sessionId)
 
-    const {data} = await axios.post(`/api${endpoint}`, payload, {
+    const {data} = await axios.post(`${process.env.NEXT_PUBLIC_API}${endpoint}`, payload, {
         headers: {
             Authorization: sessionId
         }
     })
+    return data
 
-    if(data?.success){
-        return data
-    }
-    else{
-        throw new Error(data?.error?.message || 'An error occurred')
-    }
+    // if(data?.success){
+    //     return data
+    // }
+    // else{
+    //     throw new Error(data?.error?.message || 'An error occurred')
+    // }
 }
 
 export default fetchData
