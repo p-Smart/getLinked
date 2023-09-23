@@ -4,17 +4,19 @@ import { primary } from "src/theme/create-palette"
 import medalbadges from "./medalbadges"
 import MedalBadge from "./MedalBadge"
 import {v4 as uuid} from 'uuid'
+import { useBreakpoints } from "src/theme/mediaQuery"
 
 
 
 
 const PrizesNReward = () => {
+    const {xs, sm, md, lg, xl} = useBreakpoints()
 
 
     return (
         <Stack
         sx={{
-            p: '50px 100px',
+            p: md ? '30px 30px 50px 30px' : '50px 100px',
             alignItems: 'center',
             gap: '30px',
             position: 'relative',
@@ -38,7 +40,7 @@ const PrizesNReward = () => {
         style={{
             position: 'absolute',
             top: '-15%',
-            left: '-13%',
+            left: lg ? '-35%' : '-13%',
             mixBlendMode: 'hard-light',
             filter: 'blur(20px)',
             opacity: '0.7'
@@ -48,8 +50,8 @@ const PrizesNReward = () => {
         src="/assets/images/Purple-Lens-Flare-PNG.png"
         style={{
             position: 'absolute',
-            bottom: '-60%',
-            right: '-5%',
+            bottom: '-70%',
+            right: lg ? '32%' : '-25%',
             mixBlendMode: 'hard-light',
             filter: 'blur(10px)',
             opacity: '0.8'
@@ -59,8 +61,8 @@ const PrizesNReward = () => {
         src="/assets/images/premium_photo-1664443577580-dd2674e9d359 1.png"
         style={{
             position: 'absolute',
-            top: '-45%',
-            left: '18.5%',
+            top: md ? '20%' : '-45%',
+            left: md ? '80%' : '18.5%',
             mixBlendMode: 'hard-light',
             filter: 'blur(20px)',
             opacity: '0.5'
@@ -69,12 +71,15 @@ const PrizesNReward = () => {
 
         <Stack 
         sx={{
-            gap: '20px',
-            alignSelf: 'flex-end',
-            pr: '10%'
+            gap:  '20px',
+            alignSelf: md ? 'center' : 'flex-end',
+            pr: md ? 'unset' : '10%',
+            ...md && {
+                textAlign: 'center'
+            }
         }}>
         <Typography
-        variant="h5"
+        variant={sm ? "h6" : "h5"}
         sx={{
             position: 'relative',
         }}
@@ -95,11 +100,10 @@ const PrizesNReward = () => {
         </Stack>
 
         <Stack
-        direction='row'
+        direction={md ? 'column' : 'row'}
         sx={{
-            gap: '30px',
             alignItems: 'center',
-            gap: '100px',
+            gap: md ? '30px' : '100px',
             position: 'relative',
             justifyContent: 'center'
         }}
@@ -112,8 +116,8 @@ const PrizesNReward = () => {
         <img 
         src="/assets/images/9486889 1.png"
         style={{
-            width: 548/1.2,
-            height: 482/1.2,
+            width: sm ? 548/2 : lg ? 548/1.4 : 548/1.2,
+            height: sm ? 482/2 : lg ? 482/1.4 : 482/1.2,
             objectFit: 'cover'
         }}
         />
@@ -131,7 +135,7 @@ const PrizesNReward = () => {
         <Stack
         direction='row'
         sx={{
-            gap: '20px',
+            gap: xs ? '10px' : '20px',
             mt: '100px',
             position: 'relative'
         }}

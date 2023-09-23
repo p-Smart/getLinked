@@ -1,8 +1,10 @@
 import { Stack, Typography } from "@mui/material"
+import { useBreakpoints } from "src/theme/mediaQuery"
 
 
 
 const MedalBadge = ({Icon, title, prize}) => {
+    const {xs, sm, md, lg, xl} = useBreakpoints()
     const big = title==='1st' ? true : false
 
     return (
@@ -16,18 +18,18 @@ const MedalBadge = ({Icon, title, prize}) => {
             alignItems: 'center',
             textAlign: 'center',
             gap: '10px',
-            p: !big ? '80px 20px 20px 20px' : '100px 20px 20px 20px',
+            p: !big ? (sm ? '70px 5px 5px 5px' : '80px 20px 20px 20px') : (sm ? '80px 5px 5px 5px' : '100px 20px 20px 20px'),
             alignSelf: 'flex-start'
         }}
         >
         <img 
         src={Icon}
         style={{
-            width: !big ? '110px' : '160px',
-            height: !big ? '110px' : '160px',
+            width: !big ? (sm ? '80px' : '110px') : (sm ? '116.36px' : '160px'),
+            height: !big ? (sm ? '80px' : '110px') : (sm ? '116.36px' : '160px'),
             objectFit: 'cover',
             position: 'absolute',
-            top: !big ? '-30%' : '-50%'
+            top: !big ? (sm ? '-20%' : '-30%') : (sm ? '-35%' : '-50%')
         }}
         />
 

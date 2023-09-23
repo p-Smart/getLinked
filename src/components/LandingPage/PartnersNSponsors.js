@@ -2,6 +2,7 @@ import { Box, Stack, Typography } from "@mui/material"
 import { neutral } from "src/theme/create-palette"
 import {v4 as uuid} from 'uuid'
 import Divider from "./Divider"
+import { useBreakpoints } from "src/theme/mediaQuery"
 
 const partners = [
     {
@@ -28,6 +29,7 @@ const partners = [
 
 
 const PartnersNSponsors = () => {
+    const {xs, sm, md, lg, xl} = useBreakpoints()
 
 
     return (
@@ -35,7 +37,7 @@ const PartnersNSponsors = () => {
         
         <Stack
         sx={{
-            p: '50px',
+            p: sm ? '30px' : '50px',
             alignItems: 'center',
             gap: '50px',
             position: 'relative'
@@ -45,8 +47,8 @@ const PartnersNSponsors = () => {
         src="/assets/images/Purple-Lens-Flare-PNG.png"
         style={{
             position: 'absolute',
-            top: '-25%',
-            left: '-50%',
+            top: sm ? '-60%' : md ? '-50%' : '-25%',
+            left: sm ? '-90%' : '-50%',
             mixBlendMode: 'hard-light',
             filter: 'blur(20px)',
             opacity: '0.7'
@@ -56,8 +58,8 @@ const PartnersNSponsors = () => {
         src="/assets/images/Purple-Lens-Flare-PNG.png"
         style={{
             position: 'absolute',
-            bottom: '-70%',
-            right: '-20%',
+            bottom: sm ? '-100%' : md ? '-90%' : '-70%',
+            right: sm ? '-50%' : '-20%',
             mixBlendMode: 'hard-light',
             filter: 'blur(20px)',
             opacity: '0.7'
@@ -66,10 +68,12 @@ const PartnersNSponsors = () => {
         <Stack
         sx={{
             gap: '20px',
-            textAlign: 'center'
+            textAlign: 'center',
+            position: 'relative',
+            zIndex: 1
         }}>
         <Typography
-        variant="h5"
+        variant={sm ? "h6" : "h5"}
         sx={{
             position: 'relative'
         }}
@@ -91,7 +95,7 @@ const PartnersNSponsors = () => {
             justifyContent: 'center',
             gap: '20px',
             position: 'relative',
-            py: '80px'
+            py: md ? '40px' : '80px'
         }}
         >
         <img
@@ -107,7 +111,7 @@ const PartnersNSponsors = () => {
         src="/assets/images/star pu.png"
         style={{
             position: 'absolute',
-            top: '15%',
+            top: md ? '10%' : '15%',
             right: '45%',
             transform: 'scale(.6)'
         }}
@@ -170,7 +174,7 @@ const PartnersNSponsors = () => {
             {
             k===1 &&
             <Typography
-            sx={{fontSize: '1.7rem', textAlign: 'center', fontFamily: 'TypoHoop-Regular'}}
+            sx={{fontSize: sm ? '1.3rem' : '1.7rem', textAlign: 'center', fontFamily: 'TypoHoop-Regular'}}
             >
             <span>Pay</span>
             <span style={{color: '#00A3FF'}}>box</span>
@@ -179,7 +183,7 @@ const PartnersNSponsors = () => {
             {
             k===2 &&
             <Typography
-            sx={{fontSize: '1.5rem', textAlign: 'center'}}
+            sx={{fontSize: sm ? '1rem' : '1.5rem', textAlign: 'center'}}
             >
             <span>Vuzual&nbsp;</span>
             <span style={{color: '#F00', position: 'relative'}}>
@@ -187,9 +191,9 @@ const PartnersNSponsors = () => {
             <span
             style={{
                 position: 'absolute',
-                bottom: '-20%',
+                bottom: sm ? '-35%' : '-20%',
                 left: 0,
-                fontSize: '.5rem',
+                fontSize: sm ? '.3rem' : '.5rem',
                 whiteSpace: 'nowrap',
                 color: neutral[50]
             }}
@@ -218,14 +222,15 @@ export default PartnersNSponsors
 
 
 const PartnerBox = ({ rightBorder, bottomBorder, children}) => {
+    const {xs, sm, md, lg, xl} = useBreakpoints()
 
 
     return (
         <Stack
         direction='row'
         sx={{
-            width: '180px',
-            height: '100px',
+            width: sm ? '108px' : '180px',
+            height: sm ? '60px' : '100px',
         }}
         >
             <Stack

@@ -3,19 +3,21 @@ import ListCheck from "../ListCheck"
 import { primary } from "src/theme/create-palette"
 import {v4 as uuid} from 'uuid'
 import Button from "../Button"
+import { useBreakpoints } from "src/theme/mediaQuery"
 
 const rules = ['The Standard License grants you a non-exclusive right to navigate and register for our event', 'You are licensed to use the item available at any free source sites, for your project developement']
 
 
 const PrivacyNPolicy = () => {
+    const {xs, sm, md, lg, xl} = useBreakpoints()
 
 
     return (
         <Stack
-        direction='row'
+        direction={md ? 'column' : 'row'}
         sx={{
-            p: '100px',
-            gap: '50px',
+            p: md ? '30px' : '100px',
+            gap: lg ? '0px' : '50px',
             position: 'relative'
         }}
         >
@@ -37,12 +39,18 @@ const PrivacyNPolicy = () => {
             position: 'relative',
             zIndex: 1
         }}>
-        <Stack>
+        <Stack
+        sx={{
+            ...md && {
+                textAlign: 'center'
+            }
+        }}
+        >
         <Typography
-        variant="h5"
+        variant={sm ? "h6" : "h5"}
         sx={{
             position: 'relative',
-            width: 'fit-content'
+            width: md ? 'unset' : 'fit-content'
         }}
         >
         <img
@@ -71,7 +79,7 @@ const PrivacyNPolicy = () => {
         </Typography>
         </Stack>
 
-        <Typography>
+        <Typography sx={{textAlign: md ? 'center' : 'unset'}}>
         {`Below are our privacy & policy, which outline a lot of goodies.`}<br />{`it’s our aim to always take of our participant`}
         </Typography>
 
@@ -79,8 +87,8 @@ const PrivacyNPolicy = () => {
         sx={{
             border: '1px solid',
             borderColor: 'primary.main',
-            p: '50px',
-            maxWidth: '60%',
+            p: xs ? '15px' : sm ? '30px' : '50px',
+            maxWidth: md ? 'unset' : '60%',
             gap: '25px',
             position: 'relative'
         }}
@@ -103,7 +111,7 @@ const PrivacyNPolicy = () => {
             transform: 'scale(.6)'
         }}
         />
-        <Typography>
+        <Typography sx={{textAlign: md ? 'center' : 'unset'}}>
         At getlinked tech Hackathon 1.0, we value your privacy
 and are committed to protecting your personal information.
 This Privacy Policy outlines how we collect, use, disclose, 
@@ -153,14 +161,15 @@ to the practices described in this policy.
         <Stack
         sx={{
             position: 'relative',
-            alignSelf: 'center'
+            alignSelf: 'center',
+            mt: md ? '140px' : sm ? '100px' : 'unset'
         }}
         >
         <img 
         src='/assets/images/08 1.png'
         style={{
-            width: 559/1.4,
-            height: 749/1.4
+            width: sm ? 559/2.2 : lg ? 559/1.8 : 559/1.4,
+            height: sm ? 749/2.2 : lg ? 749/1.8 : 749/1.4
         }}
         />
         <Box
@@ -173,8 +182,8 @@ to the practices described in this policy.
         <img 
         src='/assets/images/Vector.png'
         style={{
-            width: 530/1.4,
-            height: 648/1.4
+            width: sm ? 530/2.2 : lg ? 530/1.8 : 530/1.4,
+            height: sm ? 648/2.2 : lg ? 648/1.8 : 648/1.4
         }}
         />
         </Box>

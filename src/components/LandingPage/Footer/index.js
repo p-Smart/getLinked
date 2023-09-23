@@ -148,13 +148,8 @@ young and talented individuals in the field of technology
         src='/assets/images/star (1).png'
         style={{
             position: 'absolute',
-            top: md ? '30%' : '10%',
-            ...!md && {
-                left: '-60%'
-            },
-            ...md && {
-                right: '20%'
-            },
+            top: md ? '-90%' : '10%',
+            left: md ? '25%' : '-60%',
             transform: 'scale(.6)'
         }}
         />
@@ -162,8 +157,8 @@ young and talented individuals in the field of technology
         src='/assets/images/star.png'
         style={{
             position: 'absolute',
-            bottom: 0,
-            right: '-30%',
+            bottom: md ? '45%' : 0,
+            right: md ? '20%' : '-30%',
             transform: 'scale(.6)'
         }}
         />
