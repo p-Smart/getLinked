@@ -15,11 +15,11 @@ const CheckBox = ({check, setCheck, onChange}) => {
     return (
         <Stack
         sx={{
-            width: '18px',
-            height: '18px',
-            borderRadius: '5px',
+            width: '15px',
+            height: '15px',
+            borderRadius: '3.5px',
             boxShadow: '0 0 10px rgb(0,0,0,.125)',
-            bgcolor: check ? '#F9F5FF' : 'neutral.50',
+            bgcolor: check ? '#F9F5FF' : 'transparent',
             border: '.5px solid',
             borderColor: check ? 'primary.main' : 'neutral.300',
             alignItems: 'center',

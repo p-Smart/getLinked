@@ -2,15 +2,19 @@ import { Stack, Typography } from "@mui/material"
 import { primary } from "src/theme/create-palette"
 import Divider from "./Divider"
 import { useBreakpoints } from "src/theme/mediaQuery"
+import { useStyleContext } from "src/context/styleContext"
 
 
 const IntroToGetLinked = () => {
     const {xs, sm, md, lg, xl} = useBreakpoints()
+    const {overviewRef} = useStyleContext()
 
 
     return (
         <>
         <Stack
+        ref={overviewRef}
+        id='overview'
         direction={md ? 'column' : 'row'}
         sx={{
             p: md ? '20px 30px 50px 20px' : '50px 100px 50px 100px',

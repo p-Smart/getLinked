@@ -4,18 +4,18 @@
 export const nav = [
     {
         title: 'Timeline',
-        route: '#'
+        route: '#timeline'
     },
     {
         title: 'Overview',
-        route: '#'
+        route: '#overview'
     },
     {
         title: 'FAQs',
-        route: '#'
+        route: '#faqs'
     },
     {
         title: 'Contact',
-        route: '#'
+        route: '/contact'
     },
 ]

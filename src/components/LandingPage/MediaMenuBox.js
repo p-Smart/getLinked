@@ -6,14 +6,35 @@ import {v4 as uuid} from 'uuid'
 import { useStyleContext } from "src/context/styleContext"
 import { useEffect, useRef } from "react"
 import { useBreakpoints } from "src/theme/mediaQuery"
+import { useRouter } from "next/router"
+import { primary } from "src/theme/create-palette"
 
 
 
 
 const MediaMenuBox = () => {
-    const {openMediaMenu, setOpenMediaMenu, mediaMenuRef} = useStyleContext()
+    const {openMediaMenu, 
+        setOpenMediaMenu, 
+        mediaMenuRef, 
+        overviewRef,
+        timelineRef,
+        faqsRef} = useStyleContext()
     const popperRef = useRef()
-    const {md} = useBreakpoints()
+    const {sm, md} = useBreakpoints()
+    const router = useRouter()
+
+    const handleButtonClick = (route) => {
+        route==='#overview' && overviewRef.current?.scrollIntoView({behaviour: 'smooth'})
+        route==='#timeline' && timelineRef.current?.scrollIntoView({behaviour: 'smooth'})
+        route==='#faqs' && faqsRef.current?.scrollIntoView({behaviour: 'smooth'})
+        
+        if(!(router.pathname.includes('#')) &&(router.pathname!=='/') && route.includes('#')){
+            router.push(`/${route}`)
+        }
+        if(route.includes('/')){
+            return router.push(route)
+        }
+    }
 
     useEffect( () => {
         if(!md){
@@ -47,13 +68,13 @@ const MediaMenuBox = () => {
             p: '30px',
             bgcolor: '#150E28',
             borderRadius: '8px',
-            border: '0.5px solid rgba(255, 255, 255, 0.04)',
+            border: '0.5px solid rgba(255, 255, 255, .08)',
             backdropFilter: 'blur(30px)',
             gap: '30px',
-            position: 'absolute',
+            position: 'fixed',
             zIndex: 5,
             right: 0,
-            top: 94
+            top: sm ? 86 : 94
         }}
         >
             <CancelButton
@@ -67,7 +88,20 @@ const MediaMenuBox = () => {
                     key={uuid()}
                     title={title}
                     variant="outlined"
-                    sx={{minWidth: 0, p: 0, alignSelf: 'flex-start'}}
+                    sx={{
+                        minWidth: 0, 
+                        p: 0, 
+                        alignSelf: 'flex-start',
+                        ...route===router.pathname &&
+                        {
+                        '& p': {
+                            backgroundImage: primary.mainGradient,
+                            backgroundClip: 'text',
+                            color: 'transparent'
+                        }
+                        }
+                    }}
+                    onClick={() => handleButtonClick(route)}
                     />
                 ) )
             }
@@ -75,7 +109,19 @@ const MediaMenuBox = () => {
 
             <Button
             title='Register'
-            sx={{alignSelf: 'flex-start'}}
+            variant={router.pathname==='/register' ?'outlined' : 'contained'}
+            sx={{
+                alignSelf: 'flex-start',
+                ...router.pathname==='/register' && {
+                        border: '2px solid',
+                        borderImage: primary.mainGradient,
+                        borderImageSlice: 1,
+                        borderImageWidth: '1.5px',
+                        p: '10px 40px',
+                        borderRadius: '5px',
+                    }
+            }}
+            onClick={() => router.push('/register')}
             />
             </Stack>
     )

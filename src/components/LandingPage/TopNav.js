@@ -8,13 +8,32 @@ import {v4 as uuid} from 'uuid'
 import { useEffect, useRef, useState } from "react"
 import { nav } from "./navigation"
 import { useStyleContext } from "src/context/styleContext"
+import { useRouter } from "next/router"
 
 
-const TopNav = ({children}) => {
+const TopNav = ({noDivider}) => {
 
     const {sm, md} = useBreakpoints()
-    const {openMediaMenu, setOpenMediaMenu, mediaMenuRef} = useStyleContext()
+    const {openMediaMenu, 
+        setOpenMediaMenu, 
+        mediaMenuRef, 
+        overviewRef,
+        timelineRef,
+        faqsRef} = useStyleContext()
+    const router = useRouter()
 
+    const handleButtonClick = (route) => {
+        route==='#overview' && overviewRef.current?.scrollIntoView({behaviour: 'smooth'})
+        route==='#timeline' && timelineRef.current?.scrollIntoView({behaviour: 'smooth'})
+        route==='#faqs' && faqsRef.current?.scrollIntoView({behaviour: 'smooth'})
+        
+        if(!(router.pathname.includes('#')) &&(router.pathname!=='/') && route.includes('#')){
+            router.push(`/${route}`)
+        }
+        if(route.includes('/')){
+            return router.push(route)
+        }
+    }
 
     return (
         <Stack>
@@ -54,13 +73,36 @@ const TopNav = ({children}) => {
                     key={uuid()}
                     title={title}
                     variant="outlined"
+                    onClick={() => handleButtonClick(route)}
+                    sx={{
+                        ...route===router.pathname &&
+                        {
+                        '& p': {
+                            backgroundImage: primary.mainGradient,
+                            backgroundClip: 'text',
+                            color: 'transparent'
+                        }
+                        }
+                    }}
                     />
                 ) )
                 }
                 </Stack>
 
                 <Button
+                variant={router.pathname==='/register' ?'outlined' : 'contained'}
                 title="Register"
+                onClick={() => router.push('/register')}
+                sx={{
+                    ...router.pathname==='/register' && {
+                        border: '2px solid',
+                        borderImage: primary.mainGradient,
+                        borderImageSlice: 1,
+                        borderImageWidth: '1.5px',
+                        p: '10px 40px',
+                        borderRadius: '5px',
+                    }
+                }}
                 />
             </Stack> :
 
@@ -80,7 +122,10 @@ const TopNav = ({children}) => {
         </Stack>
 
 
+        {
+        !noDivider &&
         <Divider sx={{borderColor: 'rgba(255, 255, 255, 0.18)', width: '100%'}} />
+        }
         </Stack>
     )
 }

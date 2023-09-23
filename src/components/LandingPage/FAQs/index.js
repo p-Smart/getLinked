@@ -5,13 +5,17 @@ import questions from "./questions"
 import FAQ from "./FAQ"
 import {v4 as uuid} from 'uuid'
 import { useBreakpoints } from "src/theme/mediaQuery"
+import { useStyleContext } from "src/context/styleContext"
 
 
 const FAQs = () => {
     const {xs, sm, md, lg, xl} = useBreakpoints()
+    const {faqsRef} = useStyleContext()
 
     return (
         <Stack
+        ref={faqsRef}
+        id='faqs'
         sx={{
             position: 'relative',
             overflow: 'hidden'

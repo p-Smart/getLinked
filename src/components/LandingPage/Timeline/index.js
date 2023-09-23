@@ -3,15 +3,19 @@ import timelines from "./timelines"
 import TimelineCont from "./TimelineCont"
 import {v4 as uuid} from 'uuid'
 import { useBreakpoints } from "src/theme/mediaQuery"
+import { useStyleContext } from "src/context/styleContext"
 
 
 
 const Timeline = () => {
     const {xs, sm, md, lg, xl} = useBreakpoints()
+    const {timelineRef} = useStyleContext()
 
 
     return (
         <Stack
+        ref={timelineRef}
+        id='timeline'
         sx={{
             p: md ? '30px 10px 60px 10px' : '50px 100px 100px 100px',
             gap: '50px'

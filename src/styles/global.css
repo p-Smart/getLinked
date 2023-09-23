@@ -1,4 +1,4 @@
-html{ -webkit-tap-highlight-color: transparent; }
+html{ -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

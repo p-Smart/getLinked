@@ -3,12 +3,17 @@ import TopNav from "../LandingPage/TopNav"
 import { useRef, useState } from "react"
 import StyleContext from "src/context/styleContext"
 import MediaMenuBox from "../LandingPage/MediaMenuBox"
+import { useRouter } from "next/router"
 
 
 
 const Layout = ({children}) => {
     const [openMediaMenu, setOpenMediaMenu] = useState(false)
     const mediaMenuRef = useRef(null)
+    const overviewRef = useRef(null)
+    const timelineRef = useRef(null)
+    const faqsRef = useRef(null)
+    const router = useRouter()
 
 
     return (
@@ -16,7 +21,10 @@ const Layout = ({children}) => {
         value={{
             openMediaMenu,
             setOpenMediaMenu,
-            mediaMenuRef
+            mediaMenuRef,
+            overviewRef,
+            timelineRef,
+            faqsRef
         }}
         >
         <Stack
@@ -27,7 +35,7 @@ const Layout = ({children}) => {
             bgcolor: 'background'
         }}
         >
-            <TopNav />
+            <TopNav noDivider={router.pathname==='/contact' || router.pathname==='/register'} />
             {
             openMediaMenu &&
             <MediaMenuBox />
