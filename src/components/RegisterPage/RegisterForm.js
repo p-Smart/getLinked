@@ -193,12 +193,6 @@ const RegisterForm = () => {
             width: '100%'
         }}
         >
-        <TextField
-        placeholder={'My Place Holder'}
-        sx={textFieldStyle}
-        onChange={(e) => setData(e.target.value)}
-        value={data}
-        />
         {
         form.map( ({title, value, placeholder, onChange}) => (
             <Stack
