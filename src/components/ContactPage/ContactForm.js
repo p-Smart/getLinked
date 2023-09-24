@@ -29,6 +29,7 @@ const ContactForm = () => {
     const clearError = () => {
         setErrorMessage('')
         setErrors(initialErrors)
+        setSuccessMessage('')
     }
     
 
