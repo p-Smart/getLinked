@@ -9,12 +9,15 @@ import fetchData from "src/utils/fetchData"
 import { useStyleContext } from "src/context/styleContext"
 
 const textFieldStyle = {
-    minWidth: 'unset',
+    minWidth: '200px',
     '& .MuiInputBase-root': {
 
     },
     '& input': {
         p: '10px 15px',
+        color: 'neutral.50'
+    },
+    '& select option': {
         color: 'neutral.50'
     },
     '& input::placeholder': {
@@ -101,13 +104,15 @@ const RegisterForm = () => {
             title: 'Category',
             placeholder: '',
             onChange: (e) => setRegData( (prevVal) => ({...prevVal, category: e.target.value}) ),
-            value: regData?.category
+            value: regData?.category,
+            select: true
         },
         {
             title: 'Group Size',
             placeholder: '',
             onChange: (e) => setRegData( (prevVal) => ({...prevVal, group_size: e.target.value}) ),
-            value: regData?.group_size
+            value: regData?.group_size,
+            select: true
         },
     ]
 
@@ -214,7 +219,7 @@ const RegisterForm = () => {
         }}
         >
         {
-        form.map( ({title, value, placeholder, onChange}, k) => (
+        form.map( ({title, value, placeholder, onChange, select}, k) => (
             <Stack
             key={k}
             sx={{gap: '10px'}}
@@ -222,13 +227,27 @@ const RegisterForm = () => {
             <Typography sx={{fontWeight: 600, fontSize: '.875rem'}}>
             {title}
             </Typography>
+            {
+            !select ?
             <TextField
             placeholder={placeholder}
             sx={textFieldStyle}
             onChange={onChange}
             value={value}
-            type="text"
-            />
+            /> :
+            <TextField
+            select
+            label={placeholder}
+            sx={textFieldStyle}
+            onChange={onChange}
+            value={value}
+            SelectProps={{native: true}}
+            >
+                <option value={'hi'}>
+                Hiii
+                </option>
+            </TextField>
+            }
             </Stack>
         ) )
         }

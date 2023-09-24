@@ -3,11 +3,13 @@ import Button from "../Button"
 import Divider from "./Divider"
 import { primary } from "src/theme/create-palette"
 import { useBreakpoints } from "src/theme/mediaQuery"
+import { useRouter } from "next/router"
 
 
 
 const Hero = () => {
     const {xs, sm, md, lg, xl} = useBreakpoints()
+    const router = useRouter()
 
 
     return (
@@ -182,6 +184,7 @@ const Hero = () => {
                 sx={{
                     alignSelf: md ? 'center' : 'flex-start'
                 }}
+                onClick={ () => router.push('/register') }
                 />
                 </Stack>
 
