@@ -47,12 +47,17 @@ const TopNav = ({noDivider}) => {
             zIndex: 1
         }}
         >
+            <Button
+            variant='outlined'
+            onClick={() => router.push('/')}
+            >
             <Typography
             variant={sm ? "h6": "h5"}
             >
             <span>get</span>
             <span style={{color: primary.main}}>linked</span>
             </Typography>
+            </Button>
 
             { !md ?
             <Stack

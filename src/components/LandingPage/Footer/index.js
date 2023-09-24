@@ -10,11 +10,32 @@ import contacts from "./contacts"
 import { links, socials } from "./links"
 import React from "react"
 import { useBreakpoints } from "src/theme/mediaQuery"
+import { useRouter } from "next/router"
+import { useStyleContext } from "src/context/styleContext"
 
 const formatText = (text) => text.split('\n').map((line, index) => index === 0 ? line : <React.Fragment key={index}><br/>{line}</React.Fragment>)
 
 const Footer = () => {
     const {xs, sm, md, lg, xl} = useBreakpoints()
+    const router = useRouter()
+
+    const {
+        overviewRef,
+        timelineRef,
+        faqsRef} = useStyleContext()
+
+    const handleButtonClick = (route) => {
+        route==='#overview' && overviewRef.current?.scrollIntoView({behaviour: 'smooth'})
+        route==='#timeline' && timelineRef.current?.scrollIntoView({behaviour: 'smooth'})
+        route==='#faqs' && faqsRef.current?.scrollIntoView({behaviour: 'smooth'})
+        
+        if(!(router.pathname.includes('#')) &&(router.pathname!=='/') && route.includes('#')){
+            router.push(`/${route}`)
+        }
+        if(route.includes('/')){
+            return router.push(route)
+        }
+    }
 
 
     return (
@@ -105,6 +126,7 @@ young and talented individuals in the field of technology
                 p: 0,
                 minWidth: 'unset'
             }}
+            onClick={() => handleButtonClick(route)}
             />
         ) )
         }

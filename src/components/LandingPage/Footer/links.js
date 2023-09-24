@@ -8,19 +8,19 @@ import Twitter from "src/components/icons/Twitter"
 export const links = [
     {
         title: 'Overview',
-        route: '#'
+        route: '#overview'
     },
     {
         title: 'Timeline',
-        route: '#'
+        route: '#timeline'
     },
     {
         title: 'FAQs',
-        route: '#'
+        route: '#faqs'
     },
     {
         title: 'Register',
-        route: '#'
+        route: '/register'
     },
 ]
 
