@@ -221,6 +221,9 @@ const RegisterForm = () => {
         errorMessage &&
         <Alert
         severity="error"
+        sx={{
+            bgcolor: '#001 !important'
+        }}
         >
             <Typography>{errorMessage}</Typography>
         </Alert>

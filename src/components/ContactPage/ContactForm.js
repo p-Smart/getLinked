@@ -148,6 +148,9 @@ const ContactForm = () => {
         errorMessage &&
         <Alert
         severity="error"
+        sx={{
+            bgcolor: '#001 !important'
+        }}
         >
             <Typography>{errorMessage}</Typography>
         </Alert>
@@ -156,6 +159,9 @@ const ContactForm = () => {
         successMessage &&
         <Alert
         severity="success"
+        sx={{
+            bgcolor: '#001 !important'
+        }}
         >
             <Typography>{successMessage}</Typography>
         </Alert>

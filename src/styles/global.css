@@ -71,5 +71,5 @@ input::-webkit-inner-spin-button {
 }
 
 
-.MuiPaper-root{ background-color: #000;}
+.MuiPopover-root .MuiPaper-root{ background-color: #000;}
 .MuiPaper-root .MuiButtonBase-root.Mui-selected{ background-color: #D434FE; }
