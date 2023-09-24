@@ -1,76 +1,86 @@
-import { Box, Stack, TextField, Typography } from "@mui/material"
+import { Alert, Box, MenuItem, Select, Stack, TextField, Typography } from "@mui/material"
 import Button from "../Button"
 import { useBreakpoints } from "src/theme/mediaQuery"
 import Grid from "../CustomGrid"
 import {v4 as uuid} from 'uuid'
 import CheckBox from "../CheckBox"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import fetchData from "src/utils/fetchData"
 import { useStyleContext } from "src/context/styleContext"
 
-const textFieldStyle = {
-    minWidth: '200px',
-    '& .MuiInputBase-root': {
-
-    },
-    '& input': {
-        p: '10px 15px',
-        color: 'neutral.50'
-    },
-    '& select option': {
-        color: 'neutral.50'
-    },
-    '& input::placeholder': {
-        color: 'rgba(255, 255, 255, 0.25)',
-        fontSize: '.8rem'
-    },
-    '& fieldset': {
-        borderColor: 'neutral.50'
-    },
-}
 
 
 const RegisterForm = () => {
     const {setOpenRegSuccessModal} = useStyleContext()
     const {xs, sm, md, lg, xl} = useBreakpoints()
+    const [loading, setLoading] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
     const initialRegData = {
         "email":"",
         "phone_number":"",
         "team_name": "",
-        "group_size": '',
+        "group_size": "default",
         "project_topic":"",
-        "category": '',
+        "category": "default",
         "privacy_poclicy_accepted": false
     }
+    const initialErrors = {
+        "email":"",
+        "phone_number":"",
+        "team_name": "",
+        "group_size": "",
+        "project_topic":"",
+        "category": "",
+        "privacy_poclicy_accepted": ""
+    }
+    const [errors, setErrors] = useState(initialErrors)
     const [regData, setRegData] = useState(initialRegData)
     
-    const [data, setData] = useState('')
+    const [categoryList, setCategoryList] = useState([])
+
+    const clearError = () => {
+        setErrorMessage('')
+        setErrors(initialErrors)
+    }
 
 
     const handleRegister = async (e) => {
         e.preventDefault()
-        setOpenRegSuccessModal(true)
-
-        return console.log(regData)
+        setLoading(true)
+        clearError()
         try{
-            await fetchData('/hackathon/registration', {
-                "email":"sample@eexample.com",
-                "phone_number":"0903322445533",
-                "team_name": "Space Explore",
-                "group_size": 10,
-                "project_topic":"Web server propagation",
-                "category": 1,
-                "privacy_poclicy_accepted": true
-            })
+            await fetchData('/hackathon/registration', regData)
+            setOpenRegSuccessModal(true)
         }
         catch(err){
+            console.log(err)
+            setErrorMessage('An Error Occurred')
+            setErrors(err?.response?.data)
+        }
+        finally{
+            setLoading(false)
 
+        }
+    }
+
+
+    const fetchCategories = async () => {
+        try{
+            const data = await fetchData('/hackathon/categories-list', {}, 'GET')
+            setCategoryList(data)
+        }
+        catch(err){
+            console.log(err.message)
         }
         finally{
 
         }
     }
 
+
+        useEffect( () => {
+            fetchCategories()
+        }, [] )
 
 
 
@@ -80,39 +90,47 @@ const RegisterForm = () => {
             title: `Team's name`,
             placeholder: 'Enter the name of your group',
             onChange: (e) => setRegData( (prevVal) => ({...prevVal, team_name: e.target.value}) ),
-            value: regData?.team_name
+            value: regData?.team_name,
+            bkName: "team_name",
         },
         {
             title: 'Phone',
             placeholder: 'Enter your phone number',
             onChange: (e) => setRegData( (prevVal) => ({...prevVal, phone_number: e.target.value}) ),
-            value: regData?.phone_number
+            value: regData?.phone_number,
+            bkName: "phone_number",
         },
         {
             title: 'Email',
             placeholder: 'Enter your email address',
             onChange: (e) => setRegData( (prevVal) => ({...prevVal, email: e.target.value}) ),
-            value: regData?.email
+            value: regData?.email,
+            bkName: "email",
         },
         {
             title: 'Project Topic',
             placeholder: 'What is your group project topic',
             onChange: (e) => setRegData( (prevVal) => ({...prevVal, project_topic: e.target.value}) ),
-            value: regData?.project_topic
+            value: regData?.project_topic,
+            bkName: "project_topic",
         },
         {
             title: 'Category',
-            placeholder: '',
-            onChange: (e) => setRegData( (prevVal) => ({...prevVal, category: e.target.value}) ),
+            placeholder: 'Select your category',
+            onChange: (_, e) => setRegData( (prevVal) => ({...prevVal, category: e.props.value}) ),
             value: regData?.category,
-            select: true
+            bkName: "category",
+            select: true,
+            list: [{name: 'MOBILE', id: 1}, {name: 'WEB', id: 2}, {name: 'BACKEND', id: 3}],
         },
         {
             title: 'Group Size',
-            placeholder: '',
-            onChange: (e) => setRegData( (prevVal) => ({...prevVal, group_size: e.target.value}) ),
+            placeholder: 'Select',
+            onChange: (_, e) => setRegData( (prevVal) => ({...prevVal, group_size: e.props.value}) ),
             value: regData?.group_size,
-            select: true
+            bkName: "group_size",
+            select: true,
+            list: [{name: '2', id: 2}, {name: '3', id: 3}, {name: '4', id: 4}, {name: '5', id: 5}],
         },
     ]
 
@@ -199,6 +217,15 @@ const RegisterForm = () => {
         <Typography sx={{fontWeight: 600, fontSize: '1.2rem'}}>CREATE YOUR ACCOUNT</Typography>
         </Stack>
 
+        {
+        errorMessage &&
+        <Alert
+        severity="error"
+        >
+            <Typography>{errorMessage}</Typography>
+        </Alert>
+        }
+
         <Stack
         sx={{
             gap: '20px',
@@ -219,7 +246,7 @@ const RegisterForm = () => {
         }}
         >
         {
-        form.map( ({title, value, placeholder, onChange, select}, k) => (
+        form.map( ({title, value, placeholder, onChange, select, list, bkName}, k) => (
             <Stack
             key={k}
             sx={{gap: '10px'}}
@@ -227,27 +254,81 @@ const RegisterForm = () => {
             <Typography sx={{fontWeight: 600, fontSize: '.875rem'}}>
             {title}
             </Typography>
+            <Box>
             {
             !select ?
             <TextField
             placeholder={placeholder}
-            sx={textFieldStyle}
             onChange={onChange}
             value={value}
+            onFocus={clearError}
+            sx={{
+                minWidth: '200px',
+                '& .MuiInputBase-root': {
+
+                },
+                '& input': {
+                    p: '10px 15px',
+                    color: 'neutral.50'
+                },
+                '& select option': {
+                    color: 'neutral.50'
+                },
+                '& input::placeholder': {
+                    color: 'rgba(255, 255, 255, 0.25)',
+                    fontSize: '.8rem'
+                },
+                '& fieldset': {
+                    borderColor: 'neutral.50'
+                },
+            }}
             /> :
-            <TextField
-            select
-            label={placeholder}
-            sx={textFieldStyle}
-            onChange={onChange}
+            <Select
+            variant="standard"
             value={value}
-            SelectProps={{native: true}}
+            label={placeholder}
+            onFocus={clearError}
+            sx={{
+                '& input::placeholder': {
+                    color: '#fff'
+                },
+                color: 'neutral.50',
+                minWidth: '220px',
+                '& svg': {
+                    fill: '#fff'
+                },
+                '& fieldset': {
+                    borderColor: 'neutral.50'
+                }
+            }}
+            onChange={ onChange }
             >
-                <option value={'hi'}>
-                Hiii
-                </option>
-            </TextField>
+            <MenuItem value={'default'}>{placeholder}</MenuItem>
+            {
+            list.map( ({name, id}) => (
+                <MenuItem 
+                value={id}
+                key={id}
+                >
+                {name}
+                </MenuItem>
+            ) )
             }
+            </Select>
+            }
+
+            {
+            errors[bkName] &&
+            <Typography
+            sx={{
+                color: 'red',
+                fontSize: '.8rem'
+            }}
+            >
+            {errors[bkName]}
+            </Typography>
+            }
+            </Box>
             </Stack>
         ) )
         }
@@ -274,6 +355,7 @@ const RegisterForm = () => {
         title='Register'
         type='submit'
         fullWidth
+        loading={loading}
         sx={{
             alignSelf: 'center'
         }}

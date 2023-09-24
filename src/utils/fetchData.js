@@ -1,13 +1,15 @@
 import axios from 'axios'
 
-const fetchData = async (endpoint, payload) => {
+const fetchData = async (endpoint, payload, method='POST') => {
 
-    const {data} = await axios.post(`${process.env.NEXT_PUBLIC_API}${endpoint}`, payload, {
-        headers: {
-            Authorization: sessionId
-        }
-    })
-    return data
+    if(method==='POST'){
+        const {data} = await axios.post(`${process.env.NEXT_PUBLIC_API}${endpoint}`, {...payload})
+        return data
+    }
+    if(method==='GET'){
+        const {data} = await axios.get(`${process.env.NEXT_PUBLIC_API}${endpoint}`)
+        return data
+    }
 
     // if(data?.success){
     //     return data

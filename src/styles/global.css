@@ -69,3 +69,7 @@ input::-webkit-inner-spin-button {
        font-display: swap;
        font-style: normal;
 }
+
+
+.MuiPaper-root{ background-color: #000;}
+.MuiPaper-root .MuiButtonBase-root.Mui-selected{ background-color: #D434FE; }
