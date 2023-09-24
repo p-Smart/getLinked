@@ -4,11 +4,10 @@ import {BsCheckLg} from 'react-icons/bs'
 import { primary } from "src/theme/create-palette"
 
 
-const CheckBox = ({check, setCheck, onChange}) => {
+const CheckBox = ({check, onChange}) => {
 
     const handleToggle = (e) => {
         e.stopPropagation()
-        setCheck(!check)
         onChange && onChange(!check)
     }
 

@@ -4,11 +4,13 @@ import { useRef, useState } from "react"
 import StyleContext from "src/context/styleContext"
 import MediaMenuBox from "../LandingPage/MediaMenuBox"
 import { useRouter } from "next/router"
+import RegistrationSuccess from "../RegisterPage/RegistrationSuccess"
 
 
 
 const Layout = ({children}) => {
     const [openMediaMenu, setOpenMediaMenu] = useState(false)
+    const [openRegSuccessModal, setOpenRegSuccessModal] = useState(false)
     const mediaMenuRef = useRef(null)
     const overviewRef = useRef(null)
     const timelineRef = useRef(null)
@@ -24,7 +26,9 @@ const Layout = ({children}) => {
             mediaMenuRef,
             overviewRef,
             timelineRef,
-            faqsRef
+            faqsRef,
+            openRegSuccessModal,
+            setOpenRegSuccessModal
         }}
         >
         <Stack
@@ -41,6 +45,12 @@ const Layout = ({children}) => {
             <MediaMenuBox />
             }
             {children}
+
+
+            {
+            openRegSuccessModal &&
+            <RegistrationSuccess />
+            }
         </Stack>
         </StyleContext.Provider>
     )

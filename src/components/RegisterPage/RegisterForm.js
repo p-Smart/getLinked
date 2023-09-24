@@ -6,6 +6,7 @@ import {v4 as uuid} from 'uuid'
 import CheckBox from "../CheckBox"
 import { useState } from "react"
 import fetchData from "src/utils/fetchData"
+import { useStyleContext } from "src/context/styleContext"
 
 const textFieldStyle = {
     minWidth: 'unset',
@@ -27,9 +28,9 @@ const textFieldStyle = {
 
 
 const RegisterForm = () => {
+    const {setOpenRegSuccessModal} = useStyleContext()
     const {xs, sm, md, lg, xl} = useBreakpoints()
-    const [agree, setAgree] = useState(false)
-    const initialFormData = {
+    const initialRegData = {
         "email":"",
         "phone_number":"",
         "team_name": "",
@@ -38,14 +39,15 @@ const RegisterForm = () => {
         "category": '',
         "privacy_poclicy_accepted": false
     }
-    const [formData, setFormData] = useState(initialFormData)
+    const [regData, setRegData] = useState(initialRegData)
     const [data, setData] = useState('')
 
 
     const handleRegister = async (e) => {
         e.preventDefault()
+        setOpenRegSuccessModal(true)
 
-        return console.log(formData)
+        return console.log(regData)
         try{
             await fetchData('/hackathon/registration', {
                 "email":"sample@eexample.com",
@@ -73,38 +75,38 @@ const RegisterForm = () => {
         {
             title: `Team's name`,
             placeholder: 'Enter the name of your group',
-            action: (val) => setFormData( (prevVal) => ({...prevVal, team_name: val}) ),
-            value: formData?.team_name
+            onChange: (e) => setRegData( (prevVal) => ({...prevVal, team_name: e.target.value}) ),
+            value: regData?.team_name
         },
         {
             title: 'Phone',
             placeholder: 'Enter your phone number',
-            action: (val) => setFormData( (prevVal) => ({...prevVal, phone_number: val}) ),
-            value: formData?.phone_number
+            onChange: (e) => setRegData( (prevVal) => ({...prevVal, phone_number: e.target.value}) ),
+            value: regData?.phone_number
         },
         {
             title: 'Email',
             placeholder: 'Enter your email address',
-            action: (val) => setFormData( (prevVal) => ({...prevVal, email: val}) ),
-            value: formData?.email
+            onChange: (e) => setRegData( (prevVal) => ({...prevVal, email: e.target.value}) ),
+            value: regData?.email
         },
         {
             title: 'Project Topic',
             placeholder: 'What is your group project topic',
-            action: (val) => setFormData( (prevVal) => ({...prevVal, project_topic: val}) ),
-            value: formData?.project_topic
+            onChange: (e) => setRegData( (prevVal) => ({...prevVal, project_topic: e.target.value}) ),
+            value: regData?.project_topic
         },
         {
             title: 'Category',
             placeholder: '',
-            action: (val) => setFormData( (prevVal) => ({...prevVal, category: val}) ),
-            value: formData?.category
+            onChange: (e) => setRegData( (prevVal) => ({...prevVal, category: e.target.value}) ),
+            value: regData?.category
         },
         {
             title: 'Group Size',
             placeholder: '',
-            action: (val) => setFormData( (prevVal) => ({...prevVal, group_size: val}) ),
-            value: formData?.group_size
+            onChange: (e) => setRegData( (prevVal) => ({...prevVal, group_size: e.target.value}) ),
+            value: regData?.group_size
         },
     ]
 
@@ -191,8 +193,14 @@ const RegisterForm = () => {
             width: '100%'
         }}
         >
+        <TextField
+        placeholder={'My Place Holder'}
+        sx={textFieldStyle}
+        onChange={(e) => setData(e.target.value)}
+        value={data}
+        />
         {
-        form.map( ({title, placeholder, action, value}) => (
+        form.map( ({title, value, placeholder, onChange}) => (
             <Stack
             key={uuid()}
             sx={{gap: '10px'}}
@@ -203,8 +211,9 @@ const RegisterForm = () => {
             <TextField
             placeholder={placeholder}
             sx={textFieldStyle}
-            onChange={(e) => console.log(e.target.value)}
-            // value={value}
+            onChange={onChange}
+            value={value}
+            type="text"
             />
             </Stack>
         ) )
@@ -219,9 +228,8 @@ const RegisterForm = () => {
         direction='row'
         sx={{gap: '5px'}}>
         <CheckBox 
-        check={agree}
-        setCheck={setAgree}
-        onChange={(val) => setFormData( (prevVal) => ({...prevVal, privacy_poclicy_accepted: val}) )}
+        check={regData?.privacy_poclicy_accepted}
+        onChange={(val) => setRegData( (prevVal) => ({...prevVal, privacy_poclicy_accepted: val}) )}
         />
         <Typography sx={{fontSize: '.8rem'}}>
         I agreed with the event terms and conditions  and privacy policy
