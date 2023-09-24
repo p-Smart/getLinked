@@ -16,9 +16,19 @@ const {xs, sm, md, lg, xl} = useBreakpoints()
             '& p': {
                 fontSize: '.875rem',
                 fontWeight: 600
-            }
+            },
+            position: 'relative'
         }}
         >
+        <img 
+        src="/assets/images/sata gra.png"
+        style={{
+            position: 'absolute',
+            top: '-10%',
+            left: '20%',
+            transform: 'scale(.8)'
+        }}
+        />
         {
         !sm &&
         <>

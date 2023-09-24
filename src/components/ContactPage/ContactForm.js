@@ -38,9 +38,38 @@ const ContactForm = () => {
                 borderRadius: '12px',
             },
             gap: '20px',
-            minWidth: '40%'
+            minWidth: '40%',
+            position: 'relative'
         }}
         >
+        <img 
+        src="/assets/images/star (1).png"
+        style={{
+            position: 'absolute',
+            top: '-10%',
+            right: '7%',
+            transform: 'scale(.8)'
+        }}
+        />
+        <img 
+        src="/assets/images/star pu.png"
+        style={{
+            position: 'absolute',
+            bottom: '20%',
+            left: '-5%',
+            transform: 'scale(.7)'
+        }}
+        />
+        <img 
+        src="/assets/images/star.png"
+        style={{
+            position: 'absolute',
+            bottom: 0,
+            right: '-8%',
+            transform: 'scale(.6)'
+        }}
+        />
+
         <Typography
         variant="h6"
         sx={{

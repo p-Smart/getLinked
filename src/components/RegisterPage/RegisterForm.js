@@ -124,8 +124,27 @@ const RegisterForm = () => {
                 borderRadius: '12px',
             },
             gap: '20px',
+            position: 'relative'
         }}
         >
+        <img 
+        src="/assets/images/star (1).png"
+        style={{
+            position: 'absolute',
+            top: '3%',
+            right: '25%',
+            transform: 'scale(.8)'
+        }}
+        />
+        <img 
+        src="/assets/images/star.png"
+        style={{
+            position: 'absolute',
+            bottom: '-5%',
+            right: '10%',
+            transform: 'scale(.5)'
+        }}
+        />
         {
         !md &&
         <Typography
