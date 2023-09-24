@@ -3,11 +3,11 @@ import axios from 'axios'
 const fetchData = async (endpoint, payload, method='POST') => {
 
     if(method==='POST'){
-        const {data} = await axios.post(`${process.env.NEXT_PUBLIC_API}${endpoint}`, {...payload})
+        const {data} = await axios.post(`https://backend.getlinked.ai${endpoint}`, {...payload})
         return data
     }
     if(method==='GET'){
-        const {data} = await axios.get(`${process.env.NEXT_PUBLIC_API}${endpoint}`)
+        const {data} = await axios.get(`https://backend.getlinked.ai${endpoint}`)
         return data
     }
 
