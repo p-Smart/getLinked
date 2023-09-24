@@ -4,12 +4,44 @@ import Divider from "./Divider"
 import { primary } from "src/theme/create-palette"
 import { useBreakpoints } from "src/theme/mediaQuery"
 import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
 
 
 
 const Hero = () => {
     const {xs, sm, md, lg, xl} = useBreakpoints()
     const router = useRouter()
+
+    const initialTimeRemaining = {
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+    }
+    const [timeRemaining, setTimeRemaining] = useState(initialTimeRemaining)
+    const targetTime = new Date(2023, 10, 1, 0 , 0 ,0)
+
+    const handleTimeChange = () => {
+        setInterval( () => {
+            const currentTime = new Date()
+            const timeDiff = targetTime > currentTime ? targetTime - currentTime : 0
+            const hours = Math.floor(timeDiff / (1000 * 60 * 60))
+            let afterhours = timeDiff % (1000 * 60 * 60)
+
+            const minutes = Math.floor(afterhours / 60000)
+            let afterminutes = afterhours % 60000
+            const seconds = Math.floor(afterminutes/1000)
+
+            setTimeRemaining( (prevVal) => ({
+                ...prevVal,
+                hours,
+                minutes,
+                seconds
+            }) )
+        }, 1000 )
+    }
+    useEffect( () => {
+        handleTimeChange()
+    }, [] )
 
 
     return (
@@ -199,13 +231,13 @@ const Hero = () => {
                 }}
                 >
                 <Typography variant="time">
-                    00<sub>H</sub>
+                    {(timeRemaining?.hours).toString().padStart(2, '0')}<sub>H</sub>
                 </Typography>
                 <Typography variant="time">
-                    00<sub>M</sub>
+                    {(timeRemaining?.minutes).toString().padStart(2, '0')}<sub>M</sub>
                 </Typography>
                 <Typography variant="time">
-                    00<sub>S</sub>
+                    {(timeRemaining?.seconds).toString().padStart(2, '0')}<sub>S</sub>
                 </Typography>
                 </Stack>
             </Stack>
