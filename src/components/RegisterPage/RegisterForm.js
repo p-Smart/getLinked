@@ -262,6 +262,7 @@ const RegisterForm = () => {
             onChange={onChange}
             value={value}
             onFocus={clearError}
+            fullWidth
             sx={{
                 minWidth: '200px',
                 '& .MuiInputBase-root': {
@@ -288,6 +289,7 @@ const RegisterForm = () => {
             value={value}
             label={placeholder}
             onFocus={clearError}
+            fullWidth
             sx={{
                 '& input::placeholder': {
                     color: '#fff'
