@@ -1,34 +1,91 @@
-import { Stack, TextField, Typography } from "@mui/material"
+import { Alert, Box, Stack, TextField, Typography } from "@mui/material"
 import Button from "../Button"
 import { useBreakpoints } from "src/theme/mediaQuery"
+import { useState } from "react"
+import fetchData from "src/utils/fetchData"
 
-const textFieldStyle = {
-    '& .MuiInputBase-root': {
-
-    },
-    '& input': {
-        p: '10px 15px',
-        color: 'neutral.50'
-    },
-    '& .MuiFormLabel-root': {
-        top: '-5px',
-    },
-    '& fieldset': {
-        borderColor: 'neutral.50'
-    },
-    '& fieldset:hover': {
-        borderColor: 'neutral.50'
-    },
-    '& .Mui-focused fieldset': {
-        borderColor: 'neutral.50'
-    },
-}
 
 
 const ContactForm = () => {
     const {xs, sm, md, lg, xl} = useBreakpoints()
+    const [loading, setLoading] = useState(false)
+    const initialContactData = {
+        "email":"",
+        "phone_number":"",
+        "first_name": "",
+        "message": ""
+    }
+    const [contactData, setContactData] = useState(initialContactData)
+    const initialErrors = {
+        "email":"",
+        "phone_number":"",
+        "first_name": "",
+        "message": ""
+    }
+    const [errors, setErrors] = useState(initialErrors)
+    const [errorMessage, setErrorMessage] = useState('')
+    const [successMessage, setSuccessMessage] = useState('')
+
+    const clearError = () => {
+        setErrorMessage('')
+        setErrors(initialErrors)
+    }
+    
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setLoading(true)
+        clearError()
+        try{
+            await fetchData('/hackathon/contact-form', contactData)
+            setSuccessMessage('Message Sent successfully')
+            clearError()
+        }
+        catch(err){
+            console.log(err)
+            setErrorMessage('An Error Occurred')
+            setSuccessMessage('')
+            setErrors(err?.response?.data)
+        }
+        finally{
+            setLoading(false)
+
+        }
+    }
+
+
+    const form = [
+        {
+            title: `First Name`,
+            onChange: (e) => setContactData( (prevVal) => ({...prevVal, first_name: e.target.value}) ),
+            value: contactData?.first_name,
+            bkName: "first_name",
+        },
+        {
+            title: 'Email',
+            onChange: (e) => setContactData( (prevVal) => ({...prevVal, email: e.target.value}) ),
+            value: contactData?.email,
+            bkName: "email",
+        },
+        {
+            title: 'Phone Number',
+            onChange: (e) => setContactData( (prevVal) => ({...prevVal, phone_number: e.target.value}) ),
+            value: contactData?.phone_number,
+            bkName: "phone_number",
+        },
+        {
+            title: 'Message',
+            onChange: (e) => setContactData( (prevVal) => ({...prevVal, message: e.target.value}) ),
+            value: contactData?.message,
+            bkName: "message",
+        }
+    ]
 
     return (
+        <form
+        noValidate
+        onSubmit={handleSubmit}
+        >
         <Stack
         sx={{
             p: sm ? 0 : '50px',
@@ -86,28 +143,80 @@ const ContactForm = () => {
         </Typography>
         }
 
-        <TextField 
-        label='First Name'
-        sx={textFieldStyle}
-        />
-        <TextField 
-        label="Mail Name"
-        sx={textFieldStyle}
-        />
-        <TextField 
-        label="Message"
-        multiline
-        rows={5}
-        sx={textFieldStyle}
-        />
+        {
+        errorMessage &&
+        <Alert
+        severity="error"
+        >
+            <Typography>{errorMessage}</Typography>
+        </Alert>
+        }
+        {
+        successMessage &&
+        <Alert
+        severity="success"
+        >
+            <Typography>{successMessage}</Typography>
+        </Alert>
+        }
+
+        {
+        form.map( ({title, value, onChange, bkName}) => (
+            <Box
+            key={title}
+            >
+            <TextField
+            label={title}
+            onChange={onChange}
+            multiline={title==='Message'}
+            rows={title==='Message' && 5}
+            onFocus={clearError}
+            fullWidth
+            sx={{
+                '& .MuiInputBase-root': {
+                    color: 'neutral.50'
+                },
+                '& input': {
+                    p: '10px 15px',
+                    color: 'neutral.50'
+                },
+                '& select option': {
+                    color: 'neutral.50'
+                },
+                '& input::placeholder': {
+                    color: 'rgba(255, 255, 255, 0.25)',
+                    fontSize: '.8rem'
+                },
+                '& fieldset': {
+                    borderColor: 'neutral.50'
+                },
+            }}
+            />
+            {
+            errors[bkName] &&
+            <Typography
+            sx={{
+                color: 'red',
+                fontSize: '.8rem'
+            }}
+            >
+            {errors[bkName]}
+            </Typography>
+            }
+            </Box>
+        ) )
+        }
 
         <Button 
         title='Submit'
+        loading={loading}
+        type='submit'
         sx={{
             alignSelf: 'center'
         }}
         />
         </Stack>
+        </form>
     )
 }
 
