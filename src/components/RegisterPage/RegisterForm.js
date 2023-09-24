@@ -40,6 +40,7 @@ const RegisterForm = () => {
         "privacy_poclicy_accepted": false
     }
     const [regData, setRegData] = useState(initialRegData)
+    
     const [data, setData] = useState('')
 
 
@@ -213,9 +214,9 @@ const RegisterForm = () => {
         }}
         >
         {
-        form.map( ({title, value, placeholder, onChange}) => (
+        form.map( ({title, value, placeholder, onChange}, k) => (
             <Stack
-            key={uuid()}
+            key={k}
             sx={{gap: '10px'}}
             >
             <Typography sx={{fontWeight: 600, fontSize: '.875rem'}}>
