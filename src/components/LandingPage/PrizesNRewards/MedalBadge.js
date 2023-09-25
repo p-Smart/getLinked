@@ -19,7 +19,12 @@ const MedalBadge = ({Icon, title, prize}) => {
             textAlign: 'center',
             gap: '10px',
             p: !big ? (sm ? '70px 5px 5px 5px' : '80px 20px 20px 20px') : (sm ? '80px 5px 5px 5px' : '100px 20px 20px 20px'),
-            alignSelf: 'flex-start'
+            alignSelf: 'flex-start',
+            zIndex: 1,
+            '&:hover img': {
+                transform: 'scale(1.15)'
+            },
+            transition: '1s linear'
         }}
         >
         <img 
@@ -29,10 +34,7 @@ const MedalBadge = ({Icon, title, prize}) => {
             height: !big ? (sm ? '80px' : '110px') : (sm ? '116.36px' : '160px'),
             objectFit: 'cover',
             position: 'absolute',
-            top: !big ? (sm ? '-20%' : '-30%') : (sm ? '-35%' : '-50%'),
-            '& :hover': {
-                display: 'none'
-            }
+            top: !big ? (sm ? '-20%' : '-30%') : (sm ? '-35%' : '-50%')
         }}
         />
 
