@@ -24,7 +24,9 @@ const ZoomInOut = ({children, times=3}) => {
         <motion.div
         ref={ref}
         style={{
-            position: 'relative'
+            position: 'relative',
+            width: 'fit-content',
+            height: 'fit-content'
         }}
         variants={{
             hidden: {opacity: 0.2, scale: 1},

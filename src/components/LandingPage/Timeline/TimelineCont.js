@@ -1,5 +1,7 @@
 import { Stack, Typography } from "@mui/material"
 import { forwardRef, useRef } from "react"
+import AnimatedTextCharacter from "src/components/animations/AnimatedTextCharacters"
+import Reveal from "src/components/animations/Reveal"
 import { primary } from "src/theme/create-palette"
 import { useBreakpoints } from "src/theme/mediaQuery"
 
@@ -51,7 +53,9 @@ const TimelineCont = ({number, title, content, date}) => {
             {title}
             </Typography>
             <Typography sx={{fontSize: '.8rem'}}>
+            <Reveal>
             {content}
+            </Reveal>
             </Typography>
             </Stack>
         )

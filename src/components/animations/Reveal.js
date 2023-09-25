@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react"
 import { primary } from "src/theme/create-palette"
 
 
-const Reveal = ({children, width='fit-content'}) => {
+const Reveal = ({children, width='fit-content', slide=true}) => {
     const ref = useRef(null)
     const isInView  = useInView(ref)
     const mainControls = useAnimation()
@@ -43,6 +43,8 @@ const Reveal = ({children, width='fit-content'}) => {
         </motion.div>
 
 
+        {
+        slide &&
         <motion.div
         variants={{
             hidden: {left: 0},
@@ -61,6 +63,7 @@ const Reveal = ({children, width='fit-content'}) => {
             zIndex: 20
         }}
         />
+        }
         </Box>
     )
 }
