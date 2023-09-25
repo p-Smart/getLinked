@@ -30,7 +30,9 @@ const MedalBadge = ({Icon, title, prize}) => {
             objectFit: 'cover',
             position: 'absolute',
             top: !big ? (sm ? '-20%' : '-30%') : (sm ? '-35%' : '-50%'),
-            
+            '& :hover': {
+                display: 'none'
+            }
         }}
         />
 
