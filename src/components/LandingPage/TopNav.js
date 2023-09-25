@@ -87,6 +87,11 @@ const TopNav = ({noDivider}) => {
                             backgroundClip: 'text',
                             color: 'transparent'
                         }
+                        },
+                        '&:hover p': {
+                            backgroundImage: primary.mainGradient,
+                            backgroundClip: 'text',
+                            color: 'transparent'
                         }
                     }}
                     />
