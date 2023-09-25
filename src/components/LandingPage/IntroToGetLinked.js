@@ -3,6 +3,8 @@ import { primary } from "src/theme/create-palette"
 import Divider from "./Divider"
 import { useBreakpoints } from "src/theme/mediaQuery"
 import { useStyleContext } from "src/context/styleContext"
+import Reveal from "../animations/Reveal"
+import ZoomInOut from "../animations/ZoomInOut"
 
 
 const IntroToGetLinked = () => {
@@ -31,6 +33,7 @@ const IntroToGetLinked = () => {
             position: 'relative'
         }}
         >
+        <ZoomInOut>
         <img 
         src="/assets/images/the big idea 1.png"
         style={{
@@ -39,6 +42,7 @@ const IntroToGetLinked = () => {
             objectFit: sm ? 'contain' : 'cover'
         }}
         />
+        </ZoomInOut>
         <Typography
         sx={{
             position: 'absolute',
@@ -107,9 +111,11 @@ const IntroToGetLinked = () => {
         />
         </Typography>
 
+        <Reveal>
         <Typography>
         {`Our tech hackathon is a melting pot of visionaries, and its purpose is as clear as day: to shape the future. Whether you're a coding genius, a design maverick, or a concept wizard, you'll have the chance to transform your ideas into reality. Solving real-world problems, pushing the boundaries of technology, and creating solutions that can change the world, that's what we're all about!`}
         </Typography>
+        </Reveal>
         </Stack>
         </Stack>
 

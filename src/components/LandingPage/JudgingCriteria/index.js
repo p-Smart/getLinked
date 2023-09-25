@@ -5,6 +5,8 @@ import { v4 as uuid } from 'uuid'
 import Button from "src/components/Button"
 import Divider from "../Divider"
 import { useBreakpoints } from "src/theme/mediaQuery"
+import Reveal from "src/components/animations/Reveal"
+import ZoomInOut from "src/components/animations/ZoomInOut"
 
 
 const JudgingCriteria = () => {
@@ -52,6 +54,7 @@ const JudgingCriteria = () => {
             position: 'relative',
         }}
         >
+        <ZoomInOut times={1}>
         <img 
         src="/assets/images/8046554 1.png"
         style={{
@@ -59,6 +62,7 @@ const JudgingCriteria = () => {
             height: lg ? 2306/7 : xl ? 2306/5.5 : 2306/5
         }}
         />
+        </ZoomInOut>
         <img 
         src="/assets/images/sata gra.png"
         style={{
@@ -122,8 +126,8 @@ const JudgingCriteria = () => {
         >
         {
         criterias.map( ({title, content}) => (
-            <Typography            
-            key={uuid()}
+            <Reveal key={uuid()}>
+            <Typography
             >
                 <span
                 style={{
@@ -137,6 +141,7 @@ const JudgingCriteria = () => {
                 {content}
                 </span>
             </Typography>
+            </Reveal>
         ) )
         }
         </Stack>

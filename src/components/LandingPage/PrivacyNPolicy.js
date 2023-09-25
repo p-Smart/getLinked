@@ -4,6 +4,7 @@ import { primary } from "src/theme/create-palette"
 import {v4 as uuid} from 'uuid'
 import Button from "../Button"
 import { useBreakpoints } from "src/theme/mediaQuery"
+import Reveal from "../animations/Reveal"
 
 const rules = ['The Standard License grants you a non-exclusive right to navigate and register for our event', 'You are licensed to use the item available at any free source sites, for your project developement']
 
@@ -79,10 +80,13 @@ const PrivacyNPolicy = () => {
         </Typography>
         </Stack>
 
+        <Reveal>
         <Typography sx={{textAlign: md ? 'center' : 'unset'}}>
         {`Below are our privacy & policy, which outline a lot of goodies.`}<br />{`it’s our aim to always take of our participant`}
         </Typography>
+        </Reveal>
 
+        <Reveal>
         <Stack
         sx={{
             border: '1px solid',
@@ -156,6 +160,7 @@ to the practices described in this policy.
         />
         </Stack>
         </Stack>
+        </Reveal>
         </Stack>
 
         <Stack

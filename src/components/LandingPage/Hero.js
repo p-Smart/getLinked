@@ -5,7 +5,9 @@ import { primary } from "src/theme/create-palette"
 import { useBreakpoints } from "src/theme/mediaQuery"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-
+import { motion } from 'framer-motion'
+import Reveal from "../animations/Reveal"
+import AnimatedTextCharacter from "../animations/AnimatedTextCharacters"
 
 
 const Hero = () => {
@@ -101,8 +103,8 @@ const Hero = () => {
                 }
             }}
             >
-                <span>
-                Igniting a revolution in&nbsp;
+                <span style={{display: 'inline-flex'}}>
+                <AnimatedTextCharacter text='Igniting a revolution in'/>&nbsp;
                 </span>
                 <span
                 style={{
@@ -110,7 +112,7 @@ const Hero = () => {
                     width: 'fit-content'
                 }}
                 >
-                    <span>HR Innovation</span>
+                    <span style={{display: 'inline-flex'}}><AnimatedTextCharacter text='HR Innovation'/></span>
                     <img
                     src="/assets/images/Vector 4.svg"
                     style={{
@@ -207,9 +209,11 @@ const Hero = () => {
                 </span>
                 </span>
                 </Typography>
+                <Reveal>
                 <Typography>
                 Participate in getlinked tech Hackathon 2023 stand a chance to win a Big prize
                 </Typography>
+                </Reveal>
 
                 <Button 
                 title='Register'
@@ -258,7 +262,8 @@ const Hero = () => {
                     zIndex: 1
                 }}
                 />
-                <img 
+                
+                <motion.img
                 src="/assets/images/Image 1.png"
                 style={{
                     position: 'absolute',
@@ -267,8 +272,11 @@ const Hero = () => {
                     top: '-70px',
                     zIndex: 2
                 }}
+                initial={{ rotate: 0, scale: 0.75 }}
+                animate={{ rotate: 360, scale: 0.75 }}
+                transition={{ duration: 10, loop: true, ease: 'linear', repeat: Infinity }}
                 />
-                <img 
+                <img
                 src="/assets/images/Purple-Lens-Flare-PNG.png"
                 style={{
                     position: 'absolute',

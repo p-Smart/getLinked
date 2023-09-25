@@ -29,7 +29,8 @@ const MedalBadge = ({Icon, title, prize}) => {
             height: !big ? (sm ? '80px' : '110px') : (sm ? '116.36px' : '160px'),
             objectFit: 'cover',
             position: 'absolute',
-            top: !big ? (sm ? '-20%' : '-30%') : (sm ? '-35%' : '-50%')
+            top: !big ? (sm ? '-20%' : '-30%') : (sm ? '-35%' : '-50%'),
+            
         }}
         />
 

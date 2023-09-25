@@ -5,6 +5,7 @@ import medalbadges from "./medalbadges"
 import MedalBadge from "./MedalBadge"
 import {v4 as uuid} from 'uuid'
 import { useBreakpoints } from "src/theme/mediaQuery"
+import ZoomInOut from "src/components/animations/ZoomInOut"
 
 
 
@@ -113,6 +114,7 @@ const PrizesNReward = () => {
             position: 'relative',
         }}
         >
+        <ZoomInOut>
         <img 
         src="/assets/images/9486889 1.png"
         style={{
@@ -121,6 +123,7 @@ const PrizesNReward = () => {
             objectFit: 'cover'
         }}
         />
+        </ZoomInOut>
         <img 
         src="/assets/images/star.png"
         style={{

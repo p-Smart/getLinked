@@ -2,6 +2,8 @@ import { Box, Stack, Typography } from "@mui/material"
 import { primary } from "src/theme/create-palette"
 import Divider from "./Divider"
 import { useBreakpoints } from "src/theme/mediaQuery"
+import Reveal from "../animations/Reveal"
+import ZoomInOut from "../animations/ZoomInOut"
 
 
 const RulesNGuidelines = () => {
@@ -90,9 +92,11 @@ const RulesNGuidelines = () => {
 
         </Typography>
 
+        <Reveal>
         <Typography>
         {`Our tech hackathon is a melting pot of visionaries, and its purpose is as clear as day: to shape the future. Whether you're a coding genius, a design maverick, or a concept wizard, you'll have the chance to transform your ideas into reality. Solving real-world problems, pushing the boundaries of technology, and creating solutions that can change the world, that's what we're all about!`}
         </Typography>
+        </Reveal>
         </Stack>
 
         <Stack
@@ -100,13 +104,13 @@ const RulesNGuidelines = () => {
             position: 'relative',
         }}
         >
+        <ZoomInOut times={1}>
         <img 
         src="/assets/images/7450159 1.png"
         style={{
             width: sm ? 2800/7 : lg ? 2800/6.5 : 2800/6,
             height: sm ? 2800/7 : lg ? 2800/6.5 : 2800/6,
-            objectFit: 'cover',
-            zIndex: 1
+            objectFit: 'cover'
         }}
         />
         <Box 
@@ -117,9 +121,11 @@ const RulesNGuidelines = () => {
             background: primary.mainGradient,
             position: 'absolute',
             right: '87px',
-            top: '65px'
+            top: '65px',
+            zIndex: -1
         }}
         />
+        </ZoomInOut>
         </Stack>
         </Stack>
 

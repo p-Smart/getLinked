@@ -6,6 +6,7 @@ import FAQ from "./FAQ"
 import {v4 as uuid} from 'uuid'
 import { useBreakpoints } from "src/theme/mediaQuery"
 import { useStyleContext } from "src/context/styleContext"
+import ZoomInOut from "src/components/animations/ZoomInOut"
 
 
 const FAQs = () => {
@@ -90,6 +91,7 @@ const FAQs = () => {
             position: 'relative',
         }}
         >
+        <ZoomInOut times={2}>
         <img 
         src="/assets/images/cwok_casual_21 1.png"
         style={{
@@ -99,6 +101,7 @@ const FAQs = () => {
             zIndex: 1
         }}
         />
+        </ZoomInOut>
 
         <img 
         src="/assets/images/star (1).png"

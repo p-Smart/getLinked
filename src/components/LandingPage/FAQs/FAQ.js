@@ -1,5 +1,6 @@
 import { Divider, Stack, Typography } from "@mui/material"
 import Button from "src/components/Button"
+import Reveal from "src/components/animations/Reveal"
 
 
 
@@ -22,9 +23,11 @@ const FAQ = ({title, response}) => {
         direction='row'
         sx={{gap: '10px', justifyContent: 'space-between'}}
         >
+        <Reveal>
         <Typography>
         {title}
         </Typography>
+        </Reveal>
 
         <Typography sx={{color: 'primary.main'}}>{'+'}</Typography>
         </Stack>
